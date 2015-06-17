@@ -19,6 +19,8 @@
 #include "ResourceManager.h"
 #include "VisualEffectsManager.h"
 #include "ViewManager.h"
+#include "KeyboardManager.h"
+#include "OscManager.h"
 
 //========================== class AppManager ==============================
 //============================================================================
@@ -65,6 +67,12 @@ public:
     
     //! Returns the visual effects manager
     VisualEffectsManager&  getVisualEffectsManager() { return m_visualEffectsManager; }
+    
+    //! Returns the  keyboard manager
+    KeyboardManager&  getKeyboardManager() { return m_keyboardManager; }
+    
+    //! Returns the  OSC manager
+    OscManager&  getOscManager() { return m_oscManager; }
 
     
     //==========================================================================
@@ -106,6 +114,8 @@ private:
     ResourceManager                 m_resourceManager;          ///< Manages the resources
     ViewManager                     m_viewManager;              ///< Manages the visuals
     VisualEffectsManager            m_visualEffectsManager;     ///< Manages the visual effects
+    OscManager                      m_oscManager;               ///< Manages the OSC messages
+    KeyboardManager                 m_keyboardManager;          ///< Manages the keboard input
 
     bool                            m_debugMode;
 };

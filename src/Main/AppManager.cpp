@@ -64,22 +64,23 @@ void AppManager::setupManagers()
     m_layoutManager.setup();
     m_trackingManager.setup();
     m_guiManager.setup();
+    m_keyboardManager.setup();
+    m_oscManager.setup();
 }
 
 void AppManager::update()
 {
     m_trackingManager.update();
     m_visualEffectsManager.update();
+    m_oscManager.update();
 }
 
 
 void AppManager::draw()
 {
-    m_trackingManager.draw();
     m_viewManager.draw();
-    m_guiManager.draw();
     m_trackingManager.draw();
-    
+    m_guiManager.draw();
 }
 
 void AppManager::toggleDebugMode()

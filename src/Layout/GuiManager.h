@@ -45,13 +45,19 @@ public:
     
     void showGui(bool show){m_showGui=show;}
     
-    void setHue(float hue);
+private:
+    
+    void setupCameraGui();
+    
+    void setupTrackingGui();
     
 private:
     
     // Fluid GUI
     ofxPanel	m_gui;
     bool        m_showGui;  //It defines the whether the gui should be shown or not
+    
+    ofParameter<float>	m_guiFPS;
 };
 
 //==========================================================================

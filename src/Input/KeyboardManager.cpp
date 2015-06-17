@@ -19,6 +19,7 @@ KeyboardManager::KeyboardManager(): Manager()
 
 KeyboardManager::~KeyboardManager()
 {
+   ofUnregisterKeyEvents(this);
    ofLogNotice() << "KeyboardManager::destructor";
 }
 

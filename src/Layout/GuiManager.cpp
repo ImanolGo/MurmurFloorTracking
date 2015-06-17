@@ -9,6 +9,7 @@
 #include "ofMain.h"
 
 #include "AppManager.h"
+#include "TrackingManager.h"
 
 #include "GuiManager.h"
 
@@ -37,6 +38,30 @@ void GuiManager::setup()
     
     Manager::setup();
     
+    m_gui.setup("GuiSettings", GUI_SETTINGS_FILE_NAME);
+    m_gui.setPosition(20, 20);
+    
+    this->setupCameraGui();
+    this->setupTrackingGui();
+    
+    m_gui.loadFromFile(GUI_SETTINGS_FILE_NAME);
+}
+
+
+void GuiManager::setupCameraGui()
+{
+    TrackingManager* trackingManager = &AppManager::getInstance().getTrackingManager();
+    m_gui.add(m_guiFPS.set("FPS", 0, 0, 60));
+    
+    ofxFloatSlider * brightness = new ofxFloatSlider();
+    brightness->setup("Brightness", 6535.0, 100.0, 80000);
+    brightness->addListener(trackingManager, &TrackingManager::onBrightnessChange);
+    m_gui.add(brightness);
+}
+
+void GuiManager::setupTrackingGui()
+{
+
 }
 
 void GuiManager::draw()
@@ -44,6 +69,8 @@ void GuiManager::draw()
     if(!m_showGui)
         return;
     
+    m_gui.draw();
+    m_guiFPS = ofGetFrameRate();
 }
 
 
