@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+  <of_settings>
+	<window title="Murmur Floor Tracking" x="0" y="0" width="1280" height="1024" fullscreen="0"/>
+	<debug showCursor="1" setVerbose="0"/>
+	<network ipAddress="127.0.0.1" port="7890"/>
+  </of_settings>
+  
+  <textures>	
+  </textures>
+
+  <colors>
+  </colors>
+
+  
+</settings>
