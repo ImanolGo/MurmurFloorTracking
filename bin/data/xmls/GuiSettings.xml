@@ -1,5 +1,8 @@
 <GuiSettings>
-	<FPS>59.9849</FPS>
-	<Brightness>6492</Brightness>
+	<FPS>58.2291</FPS>
+	<Brightness>22072.5</Brightness>
+	<Threshold>145</Threshold>
+	<MinArea>12</MinArea>
+	<MaxArea>414</MaxArea>
 <GuiSettings/>
 </GuiSettings>

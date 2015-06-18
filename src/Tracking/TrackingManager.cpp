@@ -71,17 +71,17 @@ void TrackingManager::setupKinectCamera()
 {
     m_irShader.setupShaderFromSource(GL_FRAGMENT_SHADER, m_irFragmentShaderString);
     m_irShader.linkProgram();
+    
     m_irFbo.allocate(IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT, GL_RGB);
     
-    m_kinect.open(true, true, 0);
+    m_kinect.open(true, true, 0, 2);
+    m_kinect.start();
 
     // Note :
     // Default OpenCL device might not be optimal.
     // e.g. Intel HD Graphics will be chosen instead of GeForce.
     // To avoid it, specify OpenCL device index manually like following.
     // m_kinect.open(true, true, 0, 1); // GeForce on MacBookPro Retina
-    
-    m_kinect.start();
     
 }
 
@@ -97,10 +97,15 @@ void TrackingManager::updateKinectCamera()
     m_kinect.update();
     if (m_kinect.isFrameNew()) {
         m_irTexture.loadData(m_kinect.getIrPixelsRef());
-        m_irFbo.begin();
-        m_irShader.begin();
-        m_irTexture.draw(0, 0, 512, 424);
-        m_irShader.end();
+    
+        if (m_irTexture.isAllocated()) {
+            m_irFbo.begin();
+            m_irShader.begin();
+            m_irShader.setUniform1f("brightness", m_irBrightness);
+            m_irTexture.draw(0, 0, IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT);
+            m_irShader.end();
+            m_irFbo.end();
+        }
     }
 }
 
@@ -121,16 +126,18 @@ void TrackingManager::updateContourTracking()
 void TrackingManager::draw()
 {
     this->drawKinectCamera();
+    this->drawContourTracking();
 }
 
 void TrackingManager::drawKinectCamera()
 {
-    if (m_irTexture.isAllocated()) {
-        m_irShader.begin();
-        m_irShader.setUniform1f("brightness", m_irBrightness);
-        m_irTexture.draw(0, 0, IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT);
-        m_irShader.end();
-    }
+    m_irFbo.draw(0,0);
+}
+
+
+void TrackingManager::drawContourTracking()
+{
+    m_contourFinder.draw();
 }
 
 

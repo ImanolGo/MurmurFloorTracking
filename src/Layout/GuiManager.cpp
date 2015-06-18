@@ -57,10 +57,27 @@ void GuiManager::setupCameraGui()
     brightness->setup("Brightness", 6535.0, 100.0, 80000);
     brightness->addListener(trackingManager, &TrackingManager::onBrightnessChange);
     m_gui.add(brightness);
+    
 }
 
 void GuiManager::setupTrackingGui()
 {
+    TrackingManager* trackingManager = &AppManager::getInstance().getTrackingManager();
+    
+    ofxIntSlider * threshold = new ofxIntSlider();
+    threshold->setup("Threshold", 40, 0, 255);
+    threshold->addListener(trackingManager, &TrackingManager::onThresholdChange);
+    m_gui.add(threshold);
+    
+    ofxIntSlider * minArea = new ofxIntSlider();
+    minArea->setup("MinArea", 20, 0, 100);
+    minArea->addListener(trackingManager, &TrackingManager::onMinAreaChange);
+    m_gui.add(minArea);
+    
+    ofxIntSlider * maxArea = new ofxIntSlider();
+    maxArea->setup("MaxArea", 100, 100, 500);
+    maxArea->addListener(trackingManager, &TrackingManager::onMaxAreaChange);
+    m_gui.add(maxArea);
 
 }
 
@@ -86,5 +103,6 @@ void GuiManager::loadGuiValues()
 
 void GuiManager::toggleGui()
 {
+    ofLogNotice() <<"GuiManager::toggleGui -> show GUI "<< m_showGui;
     m_showGui = !m_showGui;
 }
