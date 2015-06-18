@@ -11,6 +11,7 @@
 #include "Manager.h"
 
 #include "ofxMultiKinectV2.h"
+#include "ofxCv.h"
 
 
 //========================== class TrackingManager ==============================
@@ -45,30 +46,45 @@ public:
     
     //! Brightness change controlled by GUI
     void onBrightnessChange(float & value);
-   
     
+    //! Threshold change controlled by GUI
+    void onThresholdChange(int & value);
+    
+    //! Minimum area change controlled by GUI
+    void onMinAreaChange(int & value);
+    
+    //! Maximum area change controlled by GUI
+    void onMaxAreaChange(int & value);
+   
 private:
     
-   
     void setupKinectCamera();
+    
+    void setupContourTracking();
     
     void updateKinectCamera();
     
+    void updateContourTracking();
+    
     void drawKinectCamera();
     
+    void drawContourTracking();
     
 private:
     
     
-    ofShader             m_irShader;                 ///< Shader class handling the IR camera capture
-    static const string  m_irFragmentShaderString;   ///< Actual fragement shader handling the IR camera capture
+    ofShader                m_irShader;                 ///< Shader class handling the IR camera capture
+    static const string     m_irFragmentShaderString;   ///< Actual fragement shader handling the IR camera capture
     
-    ofxMultiKinectV2     m_kinect;                   ///< Mircrosoft Kinect v2 class
-    ofTexture            m_irTexture;                ///< The texture holding every new IR captured frame
+    ofxMultiKinectV2        m_kinect;                   ///< Mircrosoft Kinect v2 class
+    ofTexture               m_irTexture;                ///< The texture holding every new IR captured frame
+    ofFbo                   m_irFbo;                    ///< The fbo holding the IR frame after applying shader
+    float                   m_irBrightness;             ///< brightness of the IR image
     
-    float                m_irBrightness;             ///< brightness of the IR image
-    
-    
+    ofxCv::ContourFinder    m_contourFinder;              ///< threshold used for the contour tracking
+    int                     m_threshold;                ///< threshold used for the contour tracking
+    int                     m_contourMinArea;           ///< contour minimum area
+    int                     m_contourMaxArea;           ///< blcontourob's maxmimum area
     
 };
 
