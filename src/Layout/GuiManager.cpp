@@ -10,6 +10,7 @@
 
 #include "AppManager.h"
 #include "TrackingManager.h"
+#include "LayoutManager.h"
 
 #include "GuiManager.h"
 
@@ -39,7 +40,7 @@ void GuiManager::setup()
     Manager::setup();
     
     m_gui.setup("GuiSettings", GUI_SETTINGS_FILE_NAME);
-    m_gui.setPosition(20, 20);
+    m_gui.setPosition(LayoutManager::MARGIN, LayoutManager::MARGIN);
     
     this->setupCameraGui();
     this->setupTrackingGui();
@@ -53,8 +54,9 @@ void GuiManager::setupCameraGui()
     TrackingManager* trackingManager = &AppManager::getInstance().getTrackingManager();
     m_gui.add(m_guiFPS.set("FPS", 0, 0, 60));
     
-    ofxFloatSlider * brightness = new ofxFloatSlider();
-    brightness->setup("Brightness", 6535.0, 100.0, 80000);
+    ofxIntSlider * brightness = new ofxIntSlider();
+    brightness->setup("Brightness", 40, 0, 255);
+    //brightness->setup("Brightness", 6535.0, 100.0, 80000);
     brightness->addListener(trackingManager, &TrackingManager::onBrightnessChange);
     m_gui.add(brightness);
     
@@ -69,6 +71,11 @@ void GuiManager::setupTrackingGui()
     threshold->addListener(trackingManager, &TrackingManager::onThresholdChange);
     m_gui.add(threshold);
     
+    ofxIntSlider * backgroundThreshold = new ofxIntSlider();
+    backgroundThreshold->setup("BackgroundThreshold", 10, 0, 30);
+    backgroundThreshold->addListener(trackingManager, &TrackingManager::onBackgroundThresholdChange);
+    m_gui.add(backgroundThreshold);
+    
     ofxIntSlider * minArea = new ofxIntSlider();
     minArea->setup("MinArea", 20, 0, 100);
     minArea->addListener(trackingManager, &TrackingManager::onMinAreaChange);
@@ -78,6 +85,16 @@ void GuiManager::setupTrackingGui()
     maxArea->setup("MaxArea", 100, 100, 500);
     maxArea->addListener(trackingManager, &TrackingManager::onMaxAreaChange);
     m_gui.add(maxArea);
+    
+    ofxToggle * backgroundSubstraction = new ofxToggle();
+    backgroundSubstraction->setup("BackgroundSubstraction", true);
+    backgroundSubstraction->addListener(trackingManager, &TrackingManager::onBackgroundSubstractionChange);
+    m_gui.add(backgroundSubstraction);
+    
+    ofxButton * resetBackground = new ofxButton();
+    resetBackground->setup("ResetButton");
+    resetBackground->addListener(trackingManager, &TrackingManager::onResetBackground);
+    m_gui.add(resetBackground);
 
 }
 

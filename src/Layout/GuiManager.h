@@ -45,6 +45,10 @@ public:
     
     void showGui(bool show){m_showGui=show;}
     
+    int getWidth()  {return m_gui.getWidth();}
+    
+    int getHeight()  {return m_gui.getHeight();}
+    
 private:
     
     void setupCameraGui();

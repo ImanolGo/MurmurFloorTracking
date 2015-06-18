@@ -52,6 +52,10 @@ private:
     //! Add all visuals as overlays
     void addVisuals();
 
+public:
+    
+    static const int MARGIN;
+    static const int PADDING;
 
 private:
 

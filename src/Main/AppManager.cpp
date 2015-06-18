@@ -21,7 +21,7 @@ AppManager& AppManager::getInstance()
 
 }
 
-AppManager::AppManager(): Manager(), m_debugMode(false)
+AppManager::AppManager(): Manager(), m_debugMode(true)
 {
     //Intentioanlly left empty
 }
@@ -63,9 +63,9 @@ void AppManager::setupManagers()
     m_settingsManager.setup();
     m_layoutManager.setup();
     m_trackingManager.setup();
-    m_guiManager.setup();
     m_keyboardManager.setup();
     m_oscManager.setup();
+    m_guiManager.setup();
 }
 
 void AppManager::update()
@@ -105,7 +105,6 @@ void AppManager::setDebugMode(bool showDebug)
     
     m_guiManager.showGui(m_debugMode);
 
-    
 }
 
 

@@ -15,6 +15,10 @@
 
 #include "LayoutManager.h"
 
+const int LayoutManager::MARGIN = 20;
+const int LayoutManager::PADDING = 10;
+
+
 LayoutManager::LayoutManager(): Manager()
 {
 	//Intentionally left empty

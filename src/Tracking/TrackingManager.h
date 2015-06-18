@@ -26,6 +26,8 @@ class TrackingManager: public Manager
     
     static const int IR_CAMERA_WIDTH;
     static const int IR_CAMERA_HEIGHT;
+    static const int TRACKING_PERSISTANCY;
+    static const int LEARNING_TIME;
     
 public:
     
@@ -45,16 +47,25 @@ public:
     void draw();
     
     //! Brightness change controlled by GUI
-    void onBrightnessChange(float & value);
+    void onBrightnessChange(int & value);
     
     //! Threshold change controlled by GUI
     void onThresholdChange(int & value);
+    
+    //! Background Threshold change controlled by GUI
+    void onBackgroundThresholdChange(int & value);
     
     //! Minimum area change controlled by GUI
     void onMinAreaChange(int & value);
     
     //! Maximum area change controlled by GUI
     void onMaxAreaChange(int & value);
+    
+    //! Background Subtraction togle change controlled by GUI
+    void onBackgroundSubstractionChange(bool & value);
+    
+    //! Reset Backround for background substraction
+    void onResetBackground();
    
 private:
     
@@ -66,9 +77,17 @@ private:
     
     void updateContourTracking();
     
-    void drawKinectCamera();
+    void updateTrackingPoint();
+    
+    void drawCamera();
+    
+    void drawIrCamera();
     
     void drawContourTracking();
+    
+    void drawTracking();
+    
+    void drawTrackingPoint();
     
 private:
     
@@ -79,12 +98,16 @@ private:
     ofxMultiKinectV2        m_kinect;                   ///< Mircrosoft Kinect v2 class
     ofTexture               m_irTexture;                ///< The texture holding every new IR captured frame
     ofFbo                   m_irFbo;                    ///< The fbo holding the IR frame after applying shader
-    float                   m_irBrightness;             ///< brightness of the IR image
+    int                     m_irBrightness;             ///< brightness of the IR image
     
-    ofxCv::ContourFinder    m_contourFinder;              ///< threshold used for the contour tracking
-    int                     m_threshold;                ///< threshold used for the contour tracking
-    int                     m_contourMinArea;           ///< contour minimum area
-    int                     m_contourMaxArea;           ///< blcontourob's maxmimum area
+    ofxCv::ContourFinder        m_contourFinder;            ///< threshold used for the contour tracking
+    ofxCv::RunningBackground    m_background;               ///< used for background substraction
+    ofPoint                     m_trackingPoint;            ///< point representing the tracking object
+    int                         m_threshold;                ///< threshold used for the contour tracking
+    int                         m_thresholdBackground;      ///< threshold used for the backround substraction
+    int                         m_contourMinArea;           ///< contour minimum area
+    int                         m_contourMaxArea;           ///< blcontourob's maxmimum area
+    bool                        m_substractBackground;     ///< defines whether to extract or not the background
     
 };
 

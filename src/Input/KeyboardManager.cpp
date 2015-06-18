@@ -52,6 +52,10 @@ void KeyboardManager::keyPressed(ofKeyEventArgs &e)
         AppManager::getInstance().getGuiManager().toggleGui();
     }
     
+    if(key == 'b' || key == 'B') {
+        AppManager::getInstance().getTrackingManager().onResetBackground();
+    }
+    
     if(key == ' ') {
         AppManager::getInstance().toggleDebugMode();
     }
