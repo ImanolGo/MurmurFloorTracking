@@ -51,7 +51,9 @@ class SettingsManager: public Manager
     
         string getIpAddress() const {return m_ipAddress;}
 
-        int getPort() const {return m_port;}
+        int getPortReceive() const {return m_portReceive;}
+    
+        int getPortSend() const {return m_portSend;}
 
 
     private:
@@ -92,7 +94,8 @@ class SettingsManager: public Manager
         ColorMap                m_colors;               ///< stores all the application's colors
         float                   m_appWidth;             ///< stores the applications width
         float                   m_appHeight;            ///< stores the applications height
-        int                     m_port;                 ///< stores the UDP port used for the Network communications
+        int                     m_portReceive;          ///< stores the UDP port to receive from
+        int                     m_portSend;             ///< stores the UDP port to send to
         string                  m_ipAddress;             ///< stores the Ip Address used for the Network communications
 };
 

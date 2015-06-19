@@ -37,15 +37,22 @@ public:
     //! updates the manager
     void update();
     
-protected:
+    //! send position
+    void sendPosition(const ofPoint& pos);
+    
+private:
     
     //! sets upt the osc receiver
     void setupOscReceiver();
+    
+    //! sets upt the osc sender
+    void setupOscSender();
+    
 
+ private:
     
-protected:
-    
-     ofxOscReceiver m_oscReceiver; ///< OSC receiver class 
+     ofxOscReceiver m_oscReceiver;  ///< OSC receiver class
+     ofxOscSender   m_oscSender;    ///< OSC sender class
 
 };
 

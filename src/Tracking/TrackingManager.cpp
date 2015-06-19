@@ -154,6 +154,8 @@ void TrackingManager::updateTrackingPoint()
             m_trackingPosition.y/=IR_CAMERA_HEIGHT;
         }
     }
+    
+    AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
 }
 
 
@@ -284,4 +286,20 @@ void TrackingManager::onBackgroundSubstractionChange(bool & value)
 }
 
 
+void TrackingManager::onTrackingPosXChange(float & value)
+{
+    m_trackingPosition.x = value;
+    AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
+}
 
+void TrackingManager::onTrackingPosYChange(float & value)
+{
+    m_trackingPosition.y = value;
+    AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
+}
+
+void TrackingManager::setTrackingPos(const ofPoint & pos)
+{
+    m_trackingPosition = pos;
+    AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
+}

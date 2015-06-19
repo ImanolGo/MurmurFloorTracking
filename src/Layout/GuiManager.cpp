@@ -86,6 +86,17 @@ void GuiManager::setupTrackingGui()
     maxArea->addListener(trackingManager, &TrackingManager::onMaxAreaChange);
     m_gui.add(maxArea);
     
+    
+    ofxFloatSlider * trackingPosX = new ofxFloatSlider();
+    trackingPosX->setup("TrackingPosX", 0.0, 0.0, 1.0);
+    trackingPosX->addListener(trackingManager, &TrackingManager::onTrackingPosXChange);
+    m_gui.add(trackingPosX);
+    
+    ofxFloatSlider * trackingPosY = new ofxFloatSlider();
+    trackingPosY->setup("TrackingPosY", 0.0, 0.0, 1.0);
+    trackingPosY->addListener(trackingManager, &TrackingManager::onTrackingPosYChange);
+    m_gui.add(trackingPosY);
+    
     ofxToggle * backgroundSubstraction = new ofxToggle();
     backgroundSubstraction->setup("BackgroundSubstraction", true);
     backgroundSubstraction->addListener(trackingManager, &TrackingManager::onBackgroundSubstractionChange);

@@ -34,18 +34,37 @@ void OscManager::setup()
     
     ofLogNotice() <<"OscManager::initialized" ;
     this->setupOscReceiver();
+    this->setupOscSender();
 }
 
 void OscManager::setupOscReceiver()
 {
-    int port = AppManager::getInstance().getSettingsManager().getPort();
+    int portReceive = AppManager::getInstance().getSettingsManager().getPortReceive();
     
-    
-    m_oscReceiver.setup(port);
+    m_oscReceiver.setup(portReceive);
    
-    ofLogNotice() <<"OscManager::setupOscReceiver -> listening for osc messages on port  " << port;
+    ofLogNotice() <<"OscManager::setupOscReceiver -> listening for osc messages on port  " << portReceive;
 }
 
+void OscManager::setupOscSender()
+{
+    int portSend = AppManager::getInstance().getSettingsManager().getPortSend();
+    string host = AppManager::getInstance().getSettingsManager().getIpAddress();
+    
+    m_oscSender.setup(host, portSend);
+    
+    ofLogNotice() <<"OscManager::setupOscSender -> open osc connection " << host << ":" << portSend;
+}
+
+
+void OscManager::sendPosition(const ofPoint& pos)
+{
+    ofxOscMessage m;
+    m.setAddress("/MurmurFloorTracking/position");
+    m.addIntArg(pos.x);
+    m.addIntArg(pos.y);
+    m_oscSender.sendMessage(m);
+}
 
 void OscManager::update()
 {
@@ -56,44 +75,23 @@ void OscManager::update()
         m_oscReceiver.getNextMessage(&m);
         
         // check for mouse moved message
-        if(m.getAddress() == "/mouse/position"){
-            // both the arguments are int32's
-            //mouseX = m.getArgAsInt32(0);
-            //mouseY = m.getArgAsInt32(1);
+        if(m.getAddress() == "/MurmurFloorTracking/position"){
+            ofPoint pos;
+            pos.x = m.getArgAsFloat(0);
+            pos.y = m.getArgAsFloat(1);
+            AppManager::getInstance().getTrackingManager().setTrackingPos(pos);
         }
-        // check for mouse button message
-        else if(m.getAddress() == "/mouse/button"){
-            // the single argument is a string
-            //mouseButtonState = m.getArgAsString(0);
+        
+        else if(m.getAddress() == "/MurmurFloorTracking/position/X"){
+            float x = m.getArgAsFloat(0);
+            AppManager::getInstance().getTrackingManager().onTrackingPosXChange(x);
+
         }
-        // check for an image being sent (note: the size of the image depends greatly on your network buffer sizes - if an image is too big the message won't come through )
-        else if(m.getAddress() == "/image" ){
-            ofBuffer buffer = m.getArgAsBlob(0);
-            //receivedImage.loadImage(buffer);
-        }
-        else{
-            // unrecognized message: display on the bottom of the screen
-            string msg_string;
-            msg_string = m.getAddress();
-            msg_string += ": ";
-            for(int i = 0; i < m.getNumArgs(); i++){
-                // get the argument type
-                msg_string += m.getArgTypeName(i);
-                msg_string += ":";
-                // display the argument - make sure we get the right type
-                if(m.getArgType(i) == OFXOSC_TYPE_INT32){
-                    msg_string += ofToString(m.getArgAsInt32(i));
-                }
-                else if(m.getArgType(i) == OFXOSC_TYPE_FLOAT){
-                    msg_string += ofToString(m.getArgAsFloat(i));
-                }
-                else if(m.getArgType(i) == OFXOSC_TYPE_STRING){
-                    msg_string += m.getArgAsString(i);
-                }
-                else{
-                    msg_string += "unknown";
-                }
-            }
+        
+        else if(m.getAddress() == "/MurmurFloorTracking/position/Y"){
+            float y = m.getArgAsFloat(0);
+            AppManager::getInstance().getTrackingManager().onTrackingPosYChange(y);
+            
         }
         
     }

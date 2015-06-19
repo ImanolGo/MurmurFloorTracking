@@ -46,6 +46,15 @@ public:
     //! Draw kinect camera tracking
     void draw();
     
+    //! Set tracking position
+    void setTrackingPos(const ofPoint & pos);
+    
+    //! Tracking position x coordinate change controlled by GUI
+    void onTrackingPosXChange(float & value);
+    
+    //! Tracking position y coordinate change controlled by GUI
+    void onTrackingPosYChange(float & value);
+    
     //! Brightness change controlled by GUI
     void onBrightnessChange(int & value);
     

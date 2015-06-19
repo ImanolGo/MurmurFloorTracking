@@ -1,10 +1,12 @@
 <GuiSettings>
-	<FPS>58.2505</FPS>
+	<FPS>59.9604</FPS>
 	<Brightness>244</Brightness>
-	<Threshold>126</Threshold>
+	<Threshold>127</Threshold>
 	<BackgroundThreshold>21</BackgroundThreshold>
 	<MinArea>23</MinArea>
 	<MaxArea>362</MaxArea>
+	<TrackingPosX>0</TrackingPosX>
+	<TrackingPosY>0</TrackingPosY>
 	<BackgroundSubstraction>1</BackgroundSubstraction>
 <GuiSettings/>
 </GuiSettings>
