@@ -7,10 +7,16 @@
 
 #include "ImageVisual3D.h"
 
+ImageVisual3D::ImageVisual3D(): ImageVisual()
+{
+    //Intentionally left empty
+}
+
+
 ImageVisual3D::ImageVisual3D(const ofVec3f& pos, const string& resourceName):
     ImageVisual(pos, resourceName, true)
 {
-    m_plane = ofPtr<ofPlanePrimitive>(new ofPlanePrimitive());
+   //Intentionally left empty
 }
 
 ImageVisual3D::~ImageVisual3D()
@@ -29,13 +35,13 @@ void ImageVisual3D::draw()
         ofRotateZ(m_rotation.z);
         ofScale(m_scale.x, m_scale.y, m_scale.z);
 
-        m_plane->set(m_width, m_height);
+        m_plane.set(m_width, m_height);
 
-        m_texture->bind();
+        m_texture.bind();
             ofFill();
             ofSetColor(m_color);
-            m_plane->draw();
-        m_texture->unbind();
+            m_plane.draw();
+        m_texture.unbind();
 
     ofPopMatrix();
 }

@@ -23,6 +23,9 @@ class ImageVisual: public BasicVisual
 public:
 
     //! Constructor
+    ImageVisual();
+    
+    //! Constructor
     ImageVisual(const ofVec3f& pos, const string& resourceName, bool centred = false);
 
     //! Destructor
@@ -49,7 +52,7 @@ public:
 
 protected:
 
-    ofPtr<ofTexture>    m_texture;          ///< ofPtr to the texture
+    ofTexture           m_texture;          ///< ofTexture
     ofVec3f             m_resizer;          ///< it deales with the resize of the picture
     bool                m_centred;          ///< defines if the visual should be centred or not
     float               m_originalWidth;    ///< stores the original width of the image in pixels

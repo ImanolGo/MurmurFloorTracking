@@ -49,7 +49,7 @@ public:
     float getOriginalHeight() const {return m_originalHeight;}
 
     //! Returns the number of paths from the scalable vector graphic
-    int getNumPath() const { return m_svg->getNumPath();}
+    int getNumPath() { return m_svg.getNumPath();}
 
     //!applies to whole shape
     void setFilled(bool t);
@@ -76,7 +76,7 @@ protected:
 
     typedef vector <ofPath>     VectorPaths;
 
-    ofPtr<ofxSVG>       m_svg;              ///< ofPtr to the SVG
+    ofxSVG              m_svg;              ///< ofPtr to the SVG
     VectorPaths         m_paths;            ///< vector storing the paths
     ofVec3f             m_resizer;          ///< it deals with the resize of the picture
     bool                m_centred;          ///< defines if the visual should be centred or not

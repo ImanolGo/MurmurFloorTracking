@@ -8,6 +8,11 @@
 
 #include "TextVisual.h"
 
+TextVisual::TextVisual(): BasicVisual(), m_fontSize(0), m_centred(false)
+{
+    //Intentionally left empty
+}
+
 TextVisual::TextVisual(ofVec3f pos, float width, float height, bool centred): BasicVisual(pos, width, height),m_fontSize(0), m_centred(centred)
 {
     //Intentionally left empty
@@ -96,6 +101,7 @@ void  TextVisual::setLineHeight(float lineHeight)
 void TextVisual::draw()
 {
     ofPushMatrix();
+    ofPushStyle();
     //ofEnableAlphaBlending();
 
         ofScale(m_scale.x, m_scale.y);
@@ -115,5 +121,6 @@ void TextVisual::draw()
         m_font.drawMultiLineColumn(m_text,m_position.x,m_position.y,m_width);
 
     //ofDisableAlphaBlending();
+    ofPopStyle();
     ofPopMatrix();   // recall the pushed style
 }

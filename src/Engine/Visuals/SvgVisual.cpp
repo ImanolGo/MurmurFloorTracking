@@ -25,8 +25,8 @@ bool SvgVisual::setResource(const string& resourceName)
 {
     m_svg = AppManager::getInstance().getResourceManager().getSVG(resourceName);
 
-    m_width = m_originalWidth = m_svg->getWidth();
-    m_height = m_originalHeight = m_svg->getHeight();
+    m_width = m_originalWidth = m_svg.getWidth();
+    m_height = m_originalHeight = m_svg.getHeight();
     m_resizer.x = m_width/m_originalWidth;
     m_resizer.y = m_height/m_originalHeight;
 
@@ -56,7 +56,7 @@ void SvgVisual::draw()
 
         ofSetColor(m_color);
 
-        m_svg->draw();
+        m_svg.draw();
 
 
     ofPopMatrix();
@@ -89,88 +89,88 @@ void SvgVisual::setHeight(float height, bool keepRatio)
 
 void SvgVisual::setFilled(bool t)
 {
-    m_svg->setFilled(t);
+    m_svg.setFilled(t);
 }
 
 void SvgVisual::setFilled(bool t,int path)
 {
-    m_svg->setFilled(t,path);
+    m_svg.setFilled(t,path);
 
 }
 
 bool SvgVisual::getFilled(int path) const
 {
-    return m_svg->getFilled(path);
+    return m_svg.getFilled(path);
 }
 
 bool SvgVisual::getFilled() const
 {
-    return m_svg->getFilled();
+    return m_svg.getFilled();
 }
 
 
 void SvgVisual::setFillColor(const ofColor &color)
 {
-    m_svg->setFillColor(color);
+    m_svg.setFillColor(color);
 }
 
 
 void SvgVisual::setFillColor(const ofColor& col,int path)
 {
-    m_svg->setFillColor(col,path);
+    m_svg.setFillColor(col,path);
 }
 
 const ofColor& SvgVisual::getFillColor(int path) const
 {
-    return m_svg->getFillColor(path);
+    return m_svg.getFillColor(path);
 }
 
 const ofColor& SvgVisual::getFillColor() const
 {
-    return m_svg->getFillColor();
+    return m_svg.getFillColor();
 }
 
 
 
 void SvgVisual::setStrokeWidth(float f)
 {
-    m_svg->setStrokeWidth(f);
+    m_svg.setStrokeWidth(f);
 }
 
 void SvgVisual::setStrokeWidth(float f,int path)
 {
-    m_svg->setStrokeWidth(f,path);
+    m_svg.setStrokeWidth(f,path);
 
 }
 
 float SvgVisual::getStrokeWidth(int path) const
 {
-    return m_svg->getStrokeWidth(path);
+    return m_svg.getStrokeWidth(path);
 }
 
 float SvgVisual::getStrokeWidth() const
 {
-     return m_svg->getStrokeWidth();
+     return m_svg.getStrokeWidth();
 }
 
 
 void SvgVisual::setStrokeColor(const ofColor& col)
 {
-    m_svg->setStrokeColor(col);
+    m_svg.setStrokeColor(col);
 }
 
 void SvgVisual::setStrokeColor(const ofColor& col,int path)
 {
-     m_svg->setStrokeColor(col,path);
+     m_svg.setStrokeColor(col,path);
 }
 
 const ofColor& SvgVisual::getStrokeColor(int path) const
 {
-    return m_svg->getStrokeColor(path);
+    return m_svg.getStrokeColor(path);
 }
 
 const ofColor& SvgVisual::getStrokeColor() const
 {
-    return m_svg->getStrokeColor();
+    return m_svg.getStrokeColor();
 }
 

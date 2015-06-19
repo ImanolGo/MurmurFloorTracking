@@ -36,10 +36,10 @@ class ResourceManager: public Manager
 		void setup();
 
         //! Searches for the specified texture name and returns the first found.
-        ofPtr<ofTexture> getTexture(const string& name) const;
+        const ofTexture& getTexture(const string& name) const;
 
         //! Searches for the specified SVG name and returns the first found.
-        ofPtr<ofxSVG> getSVG(const string& name);
+        const ofxSVG& getSVG(const string& name);
 
 	private:
 
@@ -65,14 +65,15 @@ class ResourceManager: public Manager
 
 		//======================= Typedefs =====================================
 
-		typedef std::map< string, ofPtr<ofTexture> >	TextureMap;			///< holds a list of textures sorted by name
-		typedef std::map< string, ofPtr<ofxSVG> >	    SvgMap;			    ///< holds a list of svgs sorted by name
+		typedef std::map< string, ofTexture >       TextureMap;			///< holds a list of textures sorted by name
+		typedef std::map< string, ofxSVG >          SvgMap;			    ///< holds a list of svgs sorted by name
 
 		//======================================================================
 
 		TextureMap		    m_textures;        ///< map of textures handles attached to a name
 		SvgMap		        m_SVGs;            ///< map of SVGs handles attached to a name
-		ofPtr<ofTexture>    m_defaultTexture;  ///< stores a default texture in case another resource cannot be loaded
+		ofTexture           m_defaultTexture;  ///< stores a default texture in case another resource cannot be loaded
+        ofxSVG              m_defaultSVG;      ///< stores a default svg in case another resource cannot be loaded
 
 };
 

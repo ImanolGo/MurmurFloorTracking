@@ -87,7 +87,9 @@ private:
     
     void drawTracking();
     
-    void drawTrackingPoint();
+    void drawTrackingPosition();
+    
+    void drawTrackingPosText();
     
 private:
     
@@ -102,12 +104,12 @@ private:
     
     ofxCv::ContourFinder        m_contourFinder;            ///< threshold used for the contour tracking
     ofxCv::RunningBackground    m_background;               ///< used for background substraction
-    ofPoint                     m_trackingPoint;            ///< point representing the tracking object
+    ofPoint                     m_trackingPosition;         ///< position representing the tracking object
     int                         m_threshold;                ///< threshold used for the contour tracking
     int                         m_thresholdBackground;      ///< threshold used for the backround substraction
     int                         m_contourMinArea;           ///< contour minimum area
     int                         m_contourMaxArea;           ///< blcontourob's maxmimum area
-    bool                        m_substractBackground;     ///< defines whether to extract or not the background
+    bool                        m_substractBackground;      ///< defines whether to extract or not the background
     
 };
 

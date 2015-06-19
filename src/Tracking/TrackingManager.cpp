@@ -144,12 +144,15 @@ void TrackingManager::updateContourTracking()
 
 void TrackingManager::updateTrackingPoint()
 {
+    double contourArea = 0;
     for(int i = 0; i < m_contourFinder.size(); i++) {
-        m_trackingPoint = toOf(m_contourFinder.getCenter(i));
-        m_trackingPoint.x/=IR_CAMERA_WIDTH;
-        m_trackingPoint.y/=IR_CAMERA_HEIGHT;
         
-        //ofLogNotice() <<"TrackingManager::initialized";
+        if(contourArea < m_contourFinder.getContourArea(i)){
+            contourArea =  m_contourFinder.getContourArea(i);
+            m_trackingPosition = toOf(m_contourFinder.getCenter(i));
+            m_trackingPosition.x/=IR_CAMERA_WIDTH;
+            m_trackingPosition.y/=IR_CAMERA_HEIGHT;
+        }
     }
 }
 
@@ -208,15 +211,17 @@ void TrackingManager::drawTracking()
         ofTranslate( LayoutManager::PADDING , LayoutManager::PADDING);
         ofSetColor(0);
         ofRect(0, 0, IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT);
-        this->drawTrackingPoint();
+        this->drawTrackingPosition();
+        ofTranslate( LayoutManager::PADDING , 2*LayoutManager::PADDING);
+        this->drawTrackingPosText();
     ofPopStyle();
     ofPopMatrix();
 }
 
-void TrackingManager::drawTrackingPoint()
+void TrackingManager::drawTrackingPosition()
 {
-    float x = m_trackingPoint.x*IR_CAMERA_WIDTH;
-    float y = m_trackingPoint.y*IR_CAMERA_HEIGHT;
+    float x = m_trackingPosition.x*IR_CAMERA_WIDTH;
+    float y = m_trackingPosition.y*IR_CAMERA_HEIGHT;
     float radius = 10;
     
     ofPushStyle();
@@ -228,6 +233,18 @@ void TrackingManager::drawTrackingPoint()
     ofPopStyle();
 }
 
+void TrackingManager::drawTrackingPosText()
+{
+    
+    ofPushStyle();
+        ofSetColor(255);
+        // display instructions
+        string text = "X = " + ofToString(m_trackingPosition.x) + "\nY = " + ofToString(m_trackingPosition.y);
+        ofDrawBitmapString(text, 0, 0);
+
+    ofPopStyle();
+    
+   }
 //--------------------------------------------------------------
 
 void TrackingManager::onResetBackground(){
@@ -237,7 +254,8 @@ void TrackingManager::onResetBackground(){
 
 void TrackingManager::onBrightnessChange(int & value){
     m_irBrightness = value;
-    m_irBrightness = (m_irBrightness/255.0)*(1000 - 50000) + 50000;
+    m_irBrightness = ofMap(value, 0, 255, 50000, 1000, true);
+    //ofLogNotice() <<"TrackingManager::brightness << " << m_irBrightness ;
 }
 
 void TrackingManager::onThresholdChange(int & value){
