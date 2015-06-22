@@ -61,8 +61,8 @@ void OscManager::sendPosition(const ofPoint& pos)
 {
     ofxOscMessage m;
     m.setAddress("/MurmurFloorTracking/position");
-    m.addIntArg(pos.x);
-    m.addIntArg(pos.y);
+    m.addFloatArg(pos.x);
+    m.addFloatArg(pos.y);
     m_oscSender.sendMessage(m);
 }
 
@@ -74,25 +74,15 @@ void OscManager::update()
         ofxOscMessage m;
         m_oscReceiver.getNextMessage(&m);
         
-        // check for mouse moved message
         if(m.getAddress() == "/MurmurFloorTracking/position"){
-            ofPoint pos;
+            ofVec2f pos;
             pos.x = m.getArgAsFloat(0);
             pos.y = m.getArgAsFloat(1);
-            AppManager::getInstance().getTrackingManager().setTrackingPos(pos);
-        }
-        
-        else if(m.getAddress() == "/MurmurFloorTracking/position/X"){
-            float x = m.getArgAsFloat(0);
-            AppManager::getInstance().getTrackingManager().onTrackingPosXChange(x);
+            AppManager::getInstance().getTrackingManager().onTrackingPosChange(pos);
 
         }
         
-        else if(m.getAddress() == "/MurmurFloorTracking/position/Y"){
-            float y = m.getArgAsFloat(0);
-            AppManager::getInstance().getTrackingManager().onTrackingPosYChange(y);
-            
-        }
+      
         
     }
 }

@@ -49,6 +49,8 @@ public:
     
     int getHeight()  {return m_gui.getHeight();}
     
+    void setGuiTrackingPos(const ofVec2f& pos);
+    
 private:
     
     void setupCameraGui();
@@ -61,7 +63,9 @@ private:
     ofxPanel	m_gui;
     bool        m_showGui;  //It defines the whether the gui should be shown or not
     
-    ofParameter<float>	m_guiFPS;
+    ofParameter<float>	 m_guiFPS;
+    ofParameter<ofVec2f> m_trackingPos;
+    
 };
 
 //==========================================================================

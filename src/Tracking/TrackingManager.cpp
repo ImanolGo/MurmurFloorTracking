@@ -155,28 +155,31 @@ void TrackingManager::updateTrackingPoint()
         }
     }
     
-    AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
+    AppManager::getInstance().getGuiManager().setGuiTrackingPos(m_trackingPosition);
+    //AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
 }
 
 
 
 void TrackingManager::draw()
 {
-    this->drawCamera();
     this->drawTracking();
 }
 
 
-void TrackingManager::drawCamera()
+void TrackingManager::drawTracking()
 {
     int guiWidth = AppManager::getInstance().getGuiManager().getWidth();
     float y = LayoutManager::MARGIN;
     float x = guiWidth + 2*LayoutManager::MARGIN;
+    float scale = 1.35;
     
     ofPushMatrix();
         ofTranslate( x , y );
+        ofScale(scale,scale);
         this->drawIrCamera();
         this->drawContourTracking();
+        this->drawTrackingPosition();
     ofPopMatrix();
 }
 
@@ -199,54 +202,24 @@ void TrackingManager::drawContourTracking()
     ofPopMatrix();
 }
 
-void TrackingManager::drawTracking()
+
+void TrackingManager::drawTrackingPosition()
 {
-    int guiWidth = AppManager::getInstance().getGuiManager().getWidth();
-    float y = 2*LayoutManager::MARGIN + IR_CAMERA_HEIGHT + LayoutManager::PADDING*2;
-    float x = guiWidth + 2*LayoutManager::MARGIN;
+    float x = m_trackingPosition.x*IR_CAMERA_WIDTH + LayoutManager::PADDING;
+    float y = m_trackingPosition.y*IR_CAMERA_HEIGHT + LayoutManager::PADDING;
+    float radius = 8;
     
     ofPushMatrix();
     ofPushStyle();
-        ofTranslate( x , y );
-        ofSetColor(255);
-        ofRect(0, 0, IR_CAMERA_WIDTH + LayoutManager::PADDING*2, IR_CAMERA_HEIGHT + LayoutManager::PADDING*2);
-        ofTranslate( LayoutManager::PADDING , LayoutManager::PADDING);
-        ofSetColor(0);
-        ofRect(0, 0, IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT);
-        this->drawTrackingPosition();
-        ofTranslate( LayoutManager::PADDING , 2*LayoutManager::PADDING);
-        this->drawTrackingPosText();
+        ofSetColor(255,255,0);
+        ofNoFill();
+        ofCircle(x, y, radius);
+        ofFill();
+        ofCircle(x, y, radius/8);
     ofPopStyle();
     ofPopMatrix();
 }
 
-void TrackingManager::drawTrackingPosition()
-{
-    float x = m_trackingPosition.x*IR_CAMERA_WIDTH;
-    float y = m_trackingPosition.y*IR_CAMERA_HEIGHT;
-    float radius = 10;
-    
-    ofPushStyle();
-        ofSetColor(255);
-        ofNoFill();
-        ofCircle(x, y, radius);
-        ofFill();
-        ofCircle(x, y, radius/10);
-    ofPopStyle();
-}
-
-void TrackingManager::drawTrackingPosText()
-{
-    
-    ofPushStyle();
-        ofSetColor(255);
-        // display instructions
-        string text = "X = " + ofToString(m_trackingPosition.x) + "\nY = " + ofToString(m_trackingPosition.y);
-        ofDrawBitmapString(text, 0, 0);
-
-    ofPopStyle();
-    
-   }
 //--------------------------------------------------------------
 
 void TrackingManager::onResetBackground(){
@@ -285,21 +258,10 @@ void TrackingManager::onBackgroundSubstractionChange(bool & value)
     m_substractBackground = value;
 }
 
-
-void TrackingManager::onTrackingPosXChange(float & value)
+void TrackingManager::onTrackingPosChange(ofVec2f & value)
 {
-    m_trackingPosition.x = value;
+    m_trackingPosition = value;
     AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
 }
 
-void TrackingManager::onTrackingPosYChange(float & value)
-{
-    m_trackingPosition.y = value;
-    AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
-}
 
-void TrackingManager::setTrackingPos(const ofPoint & pos)
-{
-    m_trackingPosition = pos;
-    AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
-}

@@ -62,10 +62,11 @@ void AppManager::setupManagers()
     m_visualEffectsManager.setup();
     m_settingsManager.setup();
     m_layoutManager.setup();
+    m_oscManager.setup();
     m_trackingManager.setup();
     m_keyboardManager.setup();
-    m_oscManager.setup();
     m_guiManager.setup();
+    
 }
 
 void AppManager::update()

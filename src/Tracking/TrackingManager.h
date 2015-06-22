@@ -49,11 +49,8 @@ public:
     //! Set tracking position
     void setTrackingPos(const ofPoint & pos);
     
-    //! Tracking position x coordinate change controlled by GUI
-    void onTrackingPosXChange(float & value);
-    
-    //! Tracking position y coordinate change controlled by GUI
-    void onTrackingPosYChange(float & value);
+    //! Tracking position coordinates change controlled by GUI
+    void onTrackingPosChange(ofVec2f & value);
     
     //! Brightness change controlled by GUI
     void onBrightnessChange(int & value);
@@ -88,17 +85,13 @@ private:
     
     void updateTrackingPoint();
     
-    void drawCamera();
+    void drawTracking();
     
     void drawIrCamera();
     
     void drawContourTracking();
     
-    void drawTracking();
-    
     void drawTrackingPosition();
-    
-    void drawTrackingPosText();
     
 private:
     
@@ -113,7 +106,7 @@ private:
     
     ofxCv::ContourFinder        m_contourFinder;            ///< threshold used for the contour tracking
     ofxCv::RunningBackground    m_background;               ///< used for background substraction
-    ofPoint                     m_trackingPosition;         ///< position representing the tracking object
+    ofVec2f                     m_trackingPosition;         ///< position representing the tracking object
     int                         m_threshold;                ///< threshold used for the contour tracking
     int                         m_thresholdBackground;      ///< threshold used for the backround substraction
     int                         m_contourMinArea;           ///< contour minimum area

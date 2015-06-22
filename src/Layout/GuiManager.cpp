@@ -53,7 +53,7 @@ void GuiManager::setupCameraGui()
 {
     TrackingManager* trackingManager = &AppManager::getInstance().getTrackingManager();
     m_gui.add(m_guiFPS.set("FPS", 0, 0, 60));
-    
+   
     ofxIntSlider * brightness = new ofxIntSlider();
     brightness->setup("Brightness", 40, 0, 255);
     //brightness->setup("Brightness", 6535.0, 100.0, 80000);
@@ -86,16 +86,9 @@ void GuiManager::setupTrackingGui()
     maxArea->addListener(trackingManager, &TrackingManager::onMaxAreaChange);
     m_gui.add(maxArea);
     
-    
-    ofxFloatSlider * trackingPosX = new ofxFloatSlider();
-    trackingPosX->setup("TrackingPosX", 0.0, 0.0, 1.0);
-    trackingPosX->addListener(trackingManager, &TrackingManager::onTrackingPosXChange);
-    m_gui.add(trackingPosX);
-    
-    ofxFloatSlider * trackingPosY = new ofxFloatSlider();
-    trackingPosY->setup("TrackingPosY", 0.0, 0.0, 1.0);
-    trackingPosY->addListener(trackingManager, &TrackingManager::onTrackingPosYChange);
-    m_gui.add(trackingPosY);
+    m_trackingPos.set("TrackingPos", ofVec2f(0,0),  ofVec2f(0,0),  ofVec2f(1.0,1.0));
+    m_trackingPos.addListener(trackingManager, &TrackingManager::onTrackingPosChange);
+    m_gui.add(m_trackingPos);
     
     ofxToggle * backgroundSubstraction = new ofxToggle();
     backgroundSubstraction->setup("BackgroundSubstraction", true);
@@ -103,10 +96,10 @@ void GuiManager::setupTrackingGui()
     m_gui.add(backgroundSubstraction);
     
     ofxButton * resetBackground = new ofxButton();
-    resetBackground->setup("ResetButton");
+    resetBackground->setup("ResetBackground");
     resetBackground->addListener(trackingManager, &TrackingManager::onResetBackground);
     m_gui.add(resetBackground);
-
+    
 }
 
 void GuiManager::draw()
@@ -133,4 +126,9 @@ void GuiManager::toggleGui()
 {
     ofLogNotice() <<"GuiManager::toggleGui -> show GUI "<< m_showGui;
     m_showGui = !m_showGui;
+}
+
+void GuiManager::setGuiTrackingPos(const ofVec2f& pos)
+{
+    m_trackingPos = pos;
 }
