@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "Manager.h"
 #include "ofxOsc.h"
+#include "TextVisual.h"
 
 //========================== class OscManager =======================================
 //==============================================================================
@@ -40,6 +41,7 @@ public:
     //! send position
     void sendPosition(const ofPoint& pos);
     
+
 private:
     
     //! sets upt the osc receiver
@@ -48,11 +50,17 @@ private:
     //! sets upt the osc sender
     void setupOscSender();
     
+    //! setups the text visuals
+    void setupText();
+
 
  private:
     
      ofxOscReceiver m_oscReceiver;  ///< OSC receiver class
      ofxOscSender   m_oscSender;    ///< OSC sender class
+    
+     ofPtr<TextVisual>     m_sendingInformation;
+     ofPtr<TextVisual>     m_receivingInformation;
 
 };
 

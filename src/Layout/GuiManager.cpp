@@ -15,6 +15,8 @@
 #include "GuiManager.h"
 
 const string GuiManager::GUI_SETTINGS_FILE_NAME = "xmls/GuiSettings.xml";
+const string GuiManager::GUI_SETTINGS_NAME = "MurmurFloorTracking";
+const int GuiManager::GUI_WIDTH = 250;
 
 
 GuiManager::GuiManager(): Manager(), m_showGui(true)
@@ -39,13 +41,15 @@ void GuiManager::setup()
     
     Manager::setup();
     
-    m_gui.setup("GuiSettings", GUI_SETTINGS_FILE_NAME);
+    m_gui.setDefaultWidth(GUI_WIDTH);
+    m_gui.setup(GUI_SETTINGS_NAME, GUI_SETTINGS_FILE_NAME);
     m_gui.setPosition(LayoutManager::MARGIN, LayoutManager::MARGIN);
     
     this->setupCameraGui();
     this->setupTrackingGui();
-    
     m_gui.loadFromFile(GUI_SETTINGS_FILE_NAME);
+ 
+   
 }
 
 

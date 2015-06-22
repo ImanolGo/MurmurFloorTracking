@@ -26,6 +26,7 @@ class TrackingManager: public Manager
     
     static const int IR_CAMERA_WIDTH;
     static const int IR_CAMERA_HEIGHT;
+    static const float SCALE;
     static const int TRACKING_PERSISTANCY;
     static const int LEARNING_TIME;
     
@@ -45,6 +46,15 @@ public:
     
     //! Draw kinect camera tracking
     void draw();
+    
+    //! Return the tracking visual height
+    int getHeight() const;
+    
+    //! Return the tracking visual hewidthight
+    int getWidth() const;
+    
+    //! Return the tracking visual position
+    ofVec2f getPosition() const;
     
     //! Set tracking position
     void setTrackingPos(const ofPoint & pos);

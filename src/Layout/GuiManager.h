@@ -22,6 +22,7 @@ class GuiManager: public Manager
 {
     
     static const string GUI_SETTINGS_FILE_NAME;
+    static const string GUI_SETTINGS_NAME;
     
 public:
     
@@ -56,6 +57,10 @@ private:
     void setupCameraGui();
     
     void setupTrackingGui();
+    
+public:
+    
+    static const int GUI_WIDTH;
     
 private:
     

@@ -31,6 +31,7 @@ STRINGIFY(
 
 const int TrackingManager::IR_CAMERA_WIDTH = 512;
 const int TrackingManager::IR_CAMERA_HEIGHT = 424;
+const float TrackingManager::SCALE = 1.35;
 const int TrackingManager::TRACKING_PERSISTANCY = 5*30;
 const int TrackingManager::LEARNING_TIME = 10*30;
 
@@ -169,14 +170,10 @@ void TrackingManager::draw()
 
 void TrackingManager::drawTracking()
 {
-    int guiWidth = AppManager::getInstance().getGuiManager().getWidth();
-    float y = LayoutManager::MARGIN;
-    float x = guiWidth + 2*LayoutManager::MARGIN;
-    float scale = 1.35;
-    
+    ofVec2f pos = this->getPosition();
     ofPushMatrix();
-        ofTranslate( x , y );
-        ofScale(scale,scale);
+        ofTranslate( pos.x , pos.y );
+        ofScale(SCALE,SCALE);
         this->drawIrCamera();
         this->drawContourTracking();
         this->drawTrackingPosition();
@@ -234,22 +231,23 @@ void TrackingManager::onBrightnessChange(int & value){
 }
 
 void TrackingManager::onThresholdChange(int & value){
-    m_threshold = value;
+    m_threshold = ofClamp(value,0,255);
     m_contourFinder.setThreshold(m_threshold);
 }
 
 void TrackingManager::onBackgroundThresholdChange(int & value){
-    m_thresholdBackground= value;
+    m_thresholdBackground = ofClamp(value,0,255);
     m_background.setThresholdValue(m_thresholdBackground);
 }
 
+
 void TrackingManager::onMinAreaChange(int & value){
-    m_contourMinArea = value;
+    m_contourMinArea = ofClamp(value,0,100);
     m_contourFinder.setMinAreaRadius(m_contourMinArea);
 }
 
 void TrackingManager::onMaxAreaChange(int & value){
-    m_contourMaxArea = value;
+    m_contourMaxArea = ofClamp(value,0,500);
     m_contourFinder.setMaxAreaRadius(m_contourMaxArea);
 }
 
@@ -263,5 +261,25 @@ void TrackingManager::onTrackingPosChange(ofVec2f & value)
     m_trackingPosition = value;
     AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
 }
+
+
+int TrackingManager::getHeight() const
+{
+    return (IR_CAMERA_HEIGHT + LayoutManager::PADDING*2)*SCALE;
+}
+
+int TrackingManager::getWidth() const
+{
+    return (IR_CAMERA_HEIGHT + LayoutManager::PADDING*2)*SCALE;
+}
+
+ofVec2f TrackingManager::getPosition() const
+{
+    ofVec2f pos;
+    pos.y = LayoutManager::MARGIN;
+    pos.x = GuiManager::GUI_WIDTH + 2*LayoutManager::MARGIN;
+    return pos;
+}
+
 
 

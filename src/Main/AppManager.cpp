@@ -66,7 +66,6 @@ void AppManager::setupManagers()
     m_trackingManager.setup();
     m_keyboardManager.setup();
     m_guiManager.setup();
-    
 }
 
 void AppManager::update()
@@ -98,7 +97,7 @@ void AppManager::setDebugMode(bool showDebug)
     ofLogNotice()<<"AppManager::setDebugMode-> " << m_debugMode;
     
     if(m_debugMode){
-        ofSetLogLevel(OF_LOG_VERBOSE);
+        //ofSetLogLevel(OF_LOG_VERBOSE);
     }
     else{
         ofSetLogLevel(OF_LOG_NOTICE);
