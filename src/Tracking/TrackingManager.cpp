@@ -236,7 +236,7 @@ void TrackingManager::onThresholdChange(int & value){
 }
 
 void TrackingManager::onBackgroundThresholdChange(int & value){
-    m_thresholdBackground = ofClamp(value,0,255);
+    m_thresholdBackground = ofClamp(value,0,30);
     m_background.setThresholdValue(m_thresholdBackground);
 }
 
