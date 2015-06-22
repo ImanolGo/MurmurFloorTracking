@@ -56,9 +56,6 @@ public:
     //! Return the tracking visual position
     ofVec2f getPosition() const;
     
-    //! Set tracking position
-    void setTrackingPos(const ofPoint & pos);
-    
     //! Tracking position coordinates change controlled by GUI
     void onTrackingPosChange(ofVec2f & value);
     

@@ -50,7 +50,19 @@ public:
     
     int getHeight()  {return m_gui.getHeight();}
     
-    void setGuiTrackingPos(const ofVec2f& pos);
+    void setGuiTrackingPos(const ofVec2f& pos) { m_trackingPos = pos; }
+    
+    void setGuiBrightness(int value) {m_brightness = value;}
+    
+    void setGuiThreshold(int value) {m_threshold = value;}
+    
+    void setGuiBackgroundThreshold(int value) {m_backgroundThreshold = value;}
+    
+    void setGuiMinArea(int value) {m_minArea = value;}
+    
+    void setGuiMaxArea(int value) {m_maxArea = value;}
+    
+    void setBackgroundSubstraction(bool value) {m_backgroundSubstraction = value;}
     
 private:
     
@@ -70,6 +82,12 @@ private:
     
     ofParameter<float>	 m_guiFPS;
     ofParameter<ofVec2f> m_trackingPos;
+    ofParameter<int>	 m_brightness;
+    ofParameter<int>	 m_threshold;
+    ofParameter<int>	 m_backgroundThreshold;
+    ofParameter<int>	 m_minArea;
+    ofParameter<int>	 m_maxArea;
+    ofParameter<bool>	 m_backgroundSubstraction;
     
 };
 

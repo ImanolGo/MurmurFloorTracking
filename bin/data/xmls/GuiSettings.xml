@@ -1,11 +1,10 @@
 <MurmurFloorTracking>
-	<FPS>56.6098</FPS>
+	<FPS>60.0674</FPS>
 	<Brightness>243</Brightness>
-	<Threshold>127</Threshold>
+	<Threshold>128</Threshold>
 	<BackgroundThreshold>21</BackgroundThreshold>
-	<MinArea>23</MinArea>
+	<MinArea>22</MinArea>
 	<MaxArea>362</MaxArea>
-	<TrackingPos>0.822266, 0.34434</TrackingPos>
+	<TrackingPos>0.835938, 0.358491</TrackingPos>
 	<BackgroundSubstraction>1</BackgroundSubstraction>
-<MurmurFloorTracking/>
 </MurmurFloorTracking>

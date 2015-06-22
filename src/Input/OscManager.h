@@ -52,12 +52,22 @@ private:
     
     //! setups the text visuals
     void setupText();
+    
+    //! updates the sending information text visuals
+    void updateSendText();
+    
+    //! updates receiving information text visuals
+    void updateReceiveText();
+    
+    //! gets string formatted OSC message
+    string getMessageAsString(const ofxOscMessage& m) const;
 
 
  private:
     
-     ofxOscReceiver m_oscReceiver;  ///< OSC receiver class
-     ofxOscSender   m_oscSender;    ///< OSC sender class
+     ofxOscReceiver m_oscReceiver;          ///< OSC receiver class
+     ofxOscSender   m_oscSender;            ///< OSC sender class
+     ofxOscMessage  m_latestOscMessage;    ///< latest OSC message
     
      ofPtr<TextVisual>     m_sendingInformation;
      ofPtr<TextVisual>     m_receivingInformation;
