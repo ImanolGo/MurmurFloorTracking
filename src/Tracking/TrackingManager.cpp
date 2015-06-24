@@ -15,7 +15,7 @@ using namespace cv;
 
 #define STRINGIFY(x) #x
 
-const string TrackingManager::m_irFragmentShaderString =
+const string TrackingManager::m_irFragmentShader =
 STRINGIFY(
     uniform sampler2DRect tex;
     uniform float brightness;
@@ -36,7 +36,7 @@ const int TrackingManager::TRACKING_PERSISTANCY = 5*30;
 const int TrackingManager::LEARNING_TIME = 10*30;
 
 
-TrackingManager::TrackingManager(): Manager(), m_threshold(80), m_contourMinArea(50), m_contourMaxArea(1000), m_thresholdBackground(10), m_substractBackground(true)
+TrackingManager::TrackingManager(): Manager(), m_irBrightness(6535.0), m_threshold(80), m_contourMinArea(50), m_contourMaxArea(1000), m_thresholdBackground(10), m_substractBackground(true)
 {
     //Intentionally left empty
 }
@@ -78,7 +78,7 @@ void TrackingManager::setupContourTracking()
 
 void TrackingManager::setupKinectCamera()
 {
-    m_irShader.setupShaderFromSource(GL_FRAGMENT_SHADER, m_irFragmentShaderString);
+    m_irShader.setupShaderFromSource(GL_FRAGMENT_SHADER, m_irFragmentShader);
     m_irShader.linkProgram();
     
     m_irFbo.allocate(IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT, GL_RGB);
@@ -225,7 +225,6 @@ void TrackingManager::onResetBackground(){
 
 
 void TrackingManager::onBrightnessChange(int & value){
-    m_irBrightness = value;
     m_irBrightness = ofMap(value, 0, 255, 50000, 1000, true);
     //ofLogNotice() <<"TrackingManager::brightness << " << m_irBrightness ;
 }

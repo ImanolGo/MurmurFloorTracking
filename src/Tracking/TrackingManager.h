@@ -104,7 +104,7 @@ private:
     
     
     ofShader                m_irShader;                 ///< Shader class handling the IR camera capture
-    static const string     m_irFragmentShaderString;   ///< Actual fragement shader handling the IR camera capture
+    static const string     m_irFragmentShader;         ///< Fragment shader handling the IR camera capture
     
     ofxMultiKinectV2        m_kinect;                   ///< Mircrosoft Kinect v2 class
     ofTexture               m_irTexture;                ///< The texture holding every new IR captured frame

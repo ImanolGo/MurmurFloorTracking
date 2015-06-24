@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 475.0, 119.0, 758.0, 698.0 ],
+		"rect" : [ 477.0, 270.0, 836.0, 698.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -37,6 +37,32 @@
 		"style" : "",
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 574.0, 319.0, 368.0, 22.0 ],
+					"style" : "",
+					"text" : "/MurmurFloorTracking/position 0.841797 0.34434"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 569.0, 264.0, 123.0, 22.0 ],
+					"style" : "",
+					"text" : "udpreceive 12345"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"format" : 6,
 					"id" : "obj-35",
@@ -90,9 +116,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 391.0, 141.0, 239.0, 23.0 ],
+					"patching_rect" : [ 391.0, 141.0, 222.0, 23.0 ],
 					"style" : "",
-					"text" : "/MurmurFloorTracking/Brightness $1 $2"
+					"text" : "/MurmurFloorTracking/position $1 $2"
 				}
 
 			}
@@ -215,7 +241,7 @@
 				"box" : 				{
 					"id" : "obj-13",
 					"maxclass" : "number",
-					"maximum" : 255,
+					"maximum" : 30,
 					"minimum" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
@@ -451,6 +477,16 @@
 					"hidden" : 0,
 					"midpoints" : [ 400.5, 165.0, 400.5, 165.0 ],
 					"source" : [ "obj-28", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 1 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 578.5, 306.0, 932.5, 306.0 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
