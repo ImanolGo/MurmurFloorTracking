@@ -96,7 +96,7 @@ void OscManager::setupText()
 void OscManager::sendPosition(const ofPoint& pos)
 {
     ofxOscMessage m;
-    m.setAddress("/MurmurFloorTracking/position");
+    m.setAddress("/MurmurRenderer/FloorTrackingPos");
     m.addFloatArg(pos.x);
     m.addFloatArg(pos.y);
     m_oscSender.sendMessage(m);
