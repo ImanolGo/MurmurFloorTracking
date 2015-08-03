@@ -65,6 +65,7 @@ void AppManager::setupManagers()
     m_oscManager.setup();
     m_trackingManager.setup();
     m_keyboardManager.setup();
+    m_paperThrowerManager.setup();
     m_guiManager.setup();
 }
 

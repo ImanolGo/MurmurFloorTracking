@@ -69,10 +69,15 @@ void TrackingManager::setupContourTracking()
     m_contourFinder.setTargetColor(ofColor::white, TRACK_COLOR_RGB);
     m_contourFinder.setThreshold(m_threshold);
     m_contourFinder.getTracker().setPersistence(TRACKING_PERSISTANCY);
+    m_contourFinder.setSimplify(true);
+    m_contourFinder.getTracker().setSmoothingRate(0.6);
+    m_contourFinder.setSortBySize(true);
+    
     //m_contourFinder.getTracker().setMaximumDistance(32);
     
     m_background.setLearningTime(LEARNING_TIME);
     m_background.setThresholdValue(m_threshold);
+    
     m_background.reset();
 }
 

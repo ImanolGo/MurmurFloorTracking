@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		031DA2828F1FE40403DB8163 /* timer_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A97AAFE9943FDA2A587C2FEA /* timer_util.cpp */; };
 		0466B9E6A55078A9F39B1B4B /* svgtiny_gradient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4F639B12AA5C1013177E49 /* svgtiny_gradient.cpp */; };
+		08BD61171B6FD27A002F4ECE /* PaperThrowerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08BD61151B6FD27A002F4ECE /* PaperThrowerManager.cpp */; };
 		08E3E4DF1B32DEC2008B8386 /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08E3E4DE1B32DEC2008B8386 /* OpenCL.framework */; };
 		08E3E4E01B32DEDC008B8386 /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCCFA3B1943FD5E47DD4EC89 /* libturbojpeg.dylib */; };
 		09ED54706505544D745E4A18 /* stage2.fs in Sources */ = {isa = PBXBuildFile; fileRef = 723FC6A71AF1C02E069EC084 /* stage2.fs */; };
@@ -183,6 +184,8 @@
 		074978820820325AB8737225 /* README.md */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = README.md; path = src/Addons/ofxUnicode/README.md; sourceTree = SOURCE_ROOT; };
 		08315CC02640B5462BC6D81D /* darwin_usb.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = darwin_usb.h; path = src/Addons/ofxMultiKinectV2/libs/libusb/include/libusb/os/darwin_usb.h; sourceTree = SOURCE_ROOT; };
 		0893123374DE4A7ADCCF93BB /* windows_common.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = windows_common.h; path = src/Addons/ofxMultiKinectV2/libs/libusb/include/libusb/os/windows_common.h; sourceTree = SOURCE_ROOT; };
+		08BD61151B6FD27A002F4ECE /* PaperThrowerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PaperThrowerManager.cpp; sourceTree = "<group>"; };
+		08BD61161B6FD27A002F4ECE /* PaperThrowerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaperThrowerManager.h; sourceTree = "<group>"; };
 		08C5194B0C92DDA2A7539395 /* core.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = core.h; path = src/Addons/ofxUnicode/libs/utf8cpp/src/utf8_v2_3_1/source/utf8/core.h; sourceTree = SOURCE_ROOT; };
 		08E3E4DE1B32DEC2008B8386 /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
 		09C1C26384CCDFBD447585A6 /* random.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = random.h; path = src/Addons/ofxOpenCv/libs/opencv/include/opencv2/flann/random.h; sourceTree = SOURCE_ROOT; };
@@ -587,6 +590,15 @@
 				47B837DB6F7B4DA45AC9E559 /* src */,
 			);
 			name = oscpack;
+			sourceTree = "<group>";
+		};
+		08BD61141B6FD27A002F4ECE /* PaperThrower */ = {
+			isa = PBXGroup;
+			children = (
+				08BD61151B6FD27A002F4ECE /* PaperThrowerManager.cpp */,
+				08BD61161B6FD27A002F4ECE /* PaperThrowerManager.h */,
+			);
+			path = PaperThrower;
 			sourceTree = "<group>";
 		};
 		0F51D3E13BA682F737937406 /* win32 */ = {
@@ -1673,6 +1685,7 @@
 				375D8B140B52B55EB32EB487 /* Layout */,
 				AF4FDCF7E02C59FCC5FE54A2 /* Main */,
 				25FC25C742AAAD6F43C34A66 /* Tracking */,
+				08BD61141B6FD27A002F4ECE /* PaperThrower */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1888,6 +1901,7 @@
 				CA9EDC5C38DFADC62AA6037F /* event_loop.cpp in Sources */,
 				EF36DA65EB611A19BA137DA5 /* frame_listener_impl.cpp in Sources */,
 				0EC363316CB8457FF2D3B372 /* libfreenect2.cpp in Sources */,
+				08BD61171B6FD27A002F4ECE /* PaperThrowerManager.cpp in Sources */,
 				FD21A02E86645F136526DAAC /* opencl_depth_packet_processor.cpp in Sources */,
 				38F64BC1B8D89CB979E8E0F1 /* packet_pipeline.cpp in Sources */,
 				E681E5F9D501D87D7C63B5EC /* resource.cpp in Sources */,

@@ -44,9 +44,13 @@ void GuiManager::setup()
     m_gui.setDefaultWidth(GUI_WIDTH);
     m_gui.setup(GUI_SETTINGS_NAME, GUI_SETTINGS_FILE_NAME);
     m_gui.setPosition(LayoutManager::MARGIN, LayoutManager::MARGIN);
+    ofxGuiSetFont( "fonts/open-sans/OpenSans-Semibold.ttf", 9 );
+    
+    m_gui.add(m_guiFPS.set("FPS", 0, 0, 60));
     
     this->setupCameraGui();
     this->setupTrackingGui();
+    this->setupPaperThrowerGui();
     m_gui.loadFromFile(GUI_SETTINGS_FILE_NAME);
  
    
@@ -56,11 +60,13 @@ void GuiManager::setup()
 void GuiManager::setupCameraGui()
 {
     TrackingManager* trackingManager = &AppManager::getInstance().getTrackingManager();
-    m_gui.add(m_guiFPS.set("FPS", 0, 0, 60));
+    
+    m_cameraParameters.setName("Camera");
    
     m_brightness.set("Brightness", 40, 0, 255);
     m_brightness.addListener(trackingManager, &TrackingManager::onBrightnessChange);
-    m_gui.add(m_brightness);
+    m_cameraParameters.add(m_brightness);
+    m_gui.add(m_cameraParameters);
     
 }
 
@@ -68,34 +74,57 @@ void GuiManager::setupTrackingGui()
 {
     TrackingManager* trackingManager = &AppManager::getInstance().getTrackingManager();
     
+    m_trackingParameters.setName("Tracking");
+    
     m_threshold.set("Threshold", 40, 0, 255);
     m_threshold.addListener(trackingManager, &TrackingManager::onThresholdChange);
-    m_gui.add(m_threshold);
+    m_trackingParameters.add(m_threshold);
     
     m_backgroundThreshold.set("BackgroundThreshold", 10, 0, 30);
     m_backgroundThreshold.addListener(trackingManager, &TrackingManager::onBackgroundThresholdChange);
-    m_gui.add(m_backgroundThreshold);
+    m_trackingParameters.add(m_backgroundThreshold);
     
     m_minArea.set("MinArea", 20, 0, 100);
     m_minArea.addListener(trackingManager, &TrackingManager::onMinAreaChange);
-    m_gui.add(m_minArea);
+    m_trackingParameters.add(m_minArea);
     
     m_maxArea.set("MaxArea", 100, 100, 500);
     m_maxArea.addListener(trackingManager, &TrackingManager::onMaxAreaChange);
-    m_gui.add(m_maxArea);
+    m_trackingParameters.add(m_maxArea);
     
     m_trackingPos.set("TrackingPos", ofVec2f(0,0),  ofVec2f(0,0),  ofVec2f(1.0,1.0));
     m_trackingPos.addListener(trackingManager, &TrackingManager::onTrackingPosChange);
-    m_gui.add(m_trackingPos);
+    m_trackingParameters.add(m_trackingPos);
     
     m_backgroundSubstraction.set("BackgroundSubstraction", true);
     m_backgroundSubstraction.addListener(trackingManager, &TrackingManager::onBackgroundSubstractionChange);
-    m_gui.add(m_backgroundSubstraction);
+    m_trackingParameters.add(m_backgroundSubstraction);
+    
+    m_gui.add(m_trackingParameters);
     
     ofxButton * resetBackground = new ofxButton();
     resetBackground->setup("ResetBackground");
     resetBackground->addListener(trackingManager, &TrackingManager::onResetBackground);
     m_gui.add(resetBackground);
+    
+}
+
+void GuiManager::setupPaperThrowerGui()
+{
+    PaperThrowerManager* paperThrowerManager = &AppManager::getInstance().getPaperThrowerManager();
+    
+    m_paperThrowerParameters.setName("PaperThrower");
+    
+    m_paperThrowerSlider.set("Slider", 0, 0, 100);
+    m_paperThrowerSlider.addListener(paperThrowerManager, &PaperThrowerManager::onSliderScroll);
+    m_paperThrowerParameters.add(m_paperThrowerSlider);
+    
+    m_gui.add(m_paperThrowerParameters);
+    
+    ofxButton * firePaperThrower = new ofxButton();
+    firePaperThrower->setup("Fire");
+    firePaperThrower->addListener(paperThrowerManager, &PaperThrowerManager::onFire);
+    m_gui.add(firePaperThrower);
     
 }
 

@@ -64,11 +64,15 @@ public:
     
     void setBackgroundSubstraction(bool value) {m_backgroundSubstraction = value;}
     
+    void setPaperThrowerSlider(int value) {m_paperThrowerSlider = value;}
+    
 private:
     
     void setupCameraGui();
     
     void setupTrackingGui();
+    
+    void setupPaperThrowerGui();
     
 public:
     
@@ -80,6 +84,10 @@ private:
     ofxPanel	m_gui;
     bool        m_showGui;  //It defines the whether the gui should be shown or not
     
+    ofParameterGroup	 m_cameraParameters;
+    ofParameterGroup	 m_trackingParameters;
+    ofParameterGroup	 m_paperThrowerParameters;
+    
     ofParameter<float>	 m_guiFPS;
     ofParameter<ofVec2f> m_trackingPos;
     ofParameter<int>	 m_brightness;
@@ -88,6 +96,8 @@ private:
     ofParameter<int>	 m_minArea;
     ofParameter<int>	 m_maxArea;
     ofParameter<bool>	 m_backgroundSubstraction;
+    
+    ofParameter<int>	 m_paperThrowerSlider;
     
 };
 
