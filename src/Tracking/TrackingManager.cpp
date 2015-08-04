@@ -200,7 +200,13 @@ void TrackingManager::drawContourTracking()
 {
     ofPushMatrix();
         ofTranslate( LayoutManager::PADDING , LayoutManager::PADDING);
-        m_contourFinder.draw();
+        for(int i = 0; i < m_contourFinder.size(); i++)
+        {
+            ofPolyline p = m_contourFinder.getPolyline(i).getSmoothed(4, 1);
+            p.simplify(2);
+            p.draw();
+        }
+
     ofPopMatrix();
 }
 

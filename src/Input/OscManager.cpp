@@ -76,7 +76,7 @@ void OscManager::setupText()
     m_sendingInformation->setColor(ofColor::white);
     m_sendingInformation->setLineHeight(2.5);
     
-    AppManager::getInstance().getViewManager().addOverlay(m_sendingInformation);
+    //AppManager::getInstance().getViewManager().addOverlay(m_sendingInformation);
     
     
     int porReceive = AppManager::getInstance().getSettingsManager().getPortReceive();
@@ -88,7 +88,7 @@ void OscManager::setupText()
     m_receivingInformation->setColor(ofColor::white);
     m_receivingInformation->setLineHeight(2.5);
     
-    AppManager::getInstance().getViewManager().addOverlay(m_receivingInformation);
+    //AppManager::getInstance().getViewManager().addOverlay(m_receivingInformation);
     
 }
 
@@ -171,6 +171,12 @@ void OscManager::update()
     }
 }
 
+
+void OscManager::draw()
+{
+    m_sendingInformation->draw();
+    m_receivingInformation->draw();
+}
 
 void OscManager::updateSendText()
 {

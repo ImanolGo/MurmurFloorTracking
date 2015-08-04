@@ -85,8 +85,8 @@ void ViewManager::setupTextVisuals()
 void ViewManager::update()
 {
     if(m_showDebugInfo){
-        string text = "fps: " + ofToString(ofGetFrameRate(), 2);
-        m_frameRateText->setText(text);
+        //string text = "fps: " + ofToString(ofGetFrameRate(), 2);
+        //m_frameRateText->setText(text);
 	}
 }
 
@@ -98,10 +98,11 @@ void ViewManager::draw()
     this->drawOverlays();
     this->drawVisuals();
 	
-
-	if(m_showDebugInfo){
-        m_frameRateText->draw();
-	}
+    if(m_showDebugInfo){
+        //m_frameRateText->draw();
+        string text = "fps: " + ofToString(ofGetFrameRate(), 2);
+        ofDrawBitmapString(text, 20, 20);
+    }
 }
 
 void ViewManager::drawBackround()
