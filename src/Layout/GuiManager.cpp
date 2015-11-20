@@ -84,11 +84,11 @@ void GuiManager::setupTrackingGui()
     m_backgroundThreshold.addListener(trackingManager, &TrackingManager::onBackgroundThresholdChange);
     m_trackingParameters.add(m_backgroundThreshold);
     
-    m_minArea.set("MinArea", 20, 0, 100);
+    m_minArea.set("MinArea", 20, 0, 30);
     m_minArea.addListener(trackingManager, &TrackingManager::onMinAreaChange);
     m_trackingParameters.add(m_minArea);
     
-    m_maxArea.set("MaxArea", 100, 100, 500);
+    m_maxArea.set("MaxArea", 50, 30, 200);
     m_maxArea.addListener(trackingManager, &TrackingManager::onMaxAreaChange);
     m_trackingParameters.add(m_maxArea);
     

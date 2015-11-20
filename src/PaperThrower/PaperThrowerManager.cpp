@@ -72,10 +72,8 @@ void PaperThrowerManager::setupSerial()
 
 void PaperThrowerManager::onFire()
 {
-    if(m_slider > 0){
-        char fire = 203;
-        m_serial.writeByte(fire);
-    }
+    char fire = 203;
+    m_serial.writeByte(fire);
 }
 
 void PaperThrowerManager::onSliderScroll(int & value)
@@ -86,6 +84,8 @@ void PaperThrowerManager::onSliderScroll(int & value)
 
 void PaperThrowerManager::onExit()
 {
+    m_slider = 0;
+    onSliderScroll(m_slider);
     m_serial.writeByte(0);
 }
 
