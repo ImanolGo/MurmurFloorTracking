@@ -1,5 +1,5 @@
 <MurmurFloorTracking>
-	<FPS>60.0044</FPS>
+	<FPS>59.9552</FPS>
 	<Brightness>243</Brightness>
 	<Threshold>128</Threshold>
 	<BackgroundThreshold>18</BackgroundThreshold>
@@ -25,5 +25,6 @@
 	</Tracking>
 	<PaperThrower>
 		<Slider>100</Slider>
+	<Speed>0</Speed>
 	</PaperThrower>
 </MurmurFloorTracking>

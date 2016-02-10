@@ -157,7 +157,7 @@ void OscManager::update()
             AppManager::getInstance().getTrackingManager().onResetBackground();
         }
         
-        else if(m.getAddress() == "/MurmurFloorTracking/PaperThrowerSlider"){
+        else if(m.getAddress() == "/MurmurFloorTracking/PaperThrowerSpeed"){
             int value = m.getArgAsInt32(0);
             AppManager::getInstance().getGuiManager().setPaperThrowerSlider(value);
         }

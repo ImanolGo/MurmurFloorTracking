@@ -132,7 +132,7 @@ void GuiManager::setupPaperThrowerGui()
     
     m_paperThrowerParameters.setName("PaperThrower");
     
-    m_paperThrowerSlider.set("Slider", 0, 0, 100);
+    m_paperThrowerSlider.set("Speed", 0, 0, 100);
     m_paperThrowerSlider.addListener(paperThrowerManager, &PaperThrowerManager::onSliderScroll);
     m_paperThrowerParameters.add(m_paperThrowerSlider);
     
