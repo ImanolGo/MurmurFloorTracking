@@ -100,6 +100,23 @@ void GuiManager::setupTrackingGui()
     m_backgroundSubstraction.addListener(trackingManager, &TrackingManager::onBackgroundSubstractionChange);
     m_trackingParameters.add(m_backgroundSubstraction);
     
+    
+    m_cropLeft.set("CropLeft", 0.0, 0.0, TrackingManager::IR_CAMERA_WIDTH*0.5);
+    m_cropLeft.addListener(trackingManager, &TrackingManager::onCropLeft);
+    m_trackingParameters.add(m_cropLeft);
+    
+    m_cropRight.set("CropRight", 0.0, 0.0, TrackingManager::IR_CAMERA_WIDTH*0.5);
+    m_cropRight.addListener(trackingManager, &TrackingManager::onCropRight);
+    m_trackingParameters.add(m_cropRight);
+    
+    m_cropTop.set("CropTop", 0.0, 0.0, TrackingManager::IR_CAMERA_HEIGHT*0.5);
+    m_cropTop.addListener(trackingManager, &TrackingManager::onCropTop);
+    m_trackingParameters.add(m_cropTop);
+    
+    m_cropBottom.set("CropBottom", 0.0, 0.0, TrackingManager::IR_CAMERA_HEIGHT*0.5);
+    m_cropBottom.addListener(trackingManager, &TrackingManager::onCropBottom);
+    m_trackingParameters.add(m_cropBottom);
+    
     m_gui.add(m_trackingParameters);
     
     ofxButton * resetBackground = new ofxButton();

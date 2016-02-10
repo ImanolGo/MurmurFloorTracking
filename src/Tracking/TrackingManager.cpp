@@ -36,7 +36,7 @@ const int TrackingManager::TRACKING_PERSISTANCY = 5*30;
 const int TrackingManager::LEARNING_TIME = 10*30;
 
 
-TrackingManager::TrackingManager(): Manager(), m_irBrightness(6535.0), m_threshold(80), m_contourMinArea(50), m_contourMaxArea(1000), m_thresholdBackground(10), m_substractBackground(true)
+TrackingManager::TrackingManager(): Manager(), m_irBrightness(6535.0), m_threshold(80), m_contourMinArea(50), m_contourMaxArea(1000), m_thresholdBackground(10), m_substractBackground(true),m_cropLeft(0), m_cropRight(0), m_cropTop(0), m_cropBottom(0)
 {
     //Intentionally left empty
 }
@@ -59,6 +59,7 @@ void TrackingManager::setup()
     
     this->setupKinectCamera();
     this->setupContourTracking();
+    this->setupFbos();
 }
 
 void TrackingManager::setupContourTracking()
@@ -103,6 +104,16 @@ void TrackingManager::setupKinectCamera()
     
 }
 
+void TrackingManager::setupFbos()
+{
+    m_findBlobsFbo.allocate(IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT, GL_RGB);
+    m_findBlobsFbo.begin();
+        ofClear(0,0,0,0);
+    m_findBlobsFbo.end();
+    
+}
+
+
 
 void TrackingManager::update()
 {
@@ -122,6 +133,16 @@ void TrackingManager::updateKinectCamera()
             m_irShader.setUniform1f("brightness", m_irBrightness);
             m_irTexture.draw(0, 0, IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT);
             m_irShader.end();
+            
+            ofPushStyle();
+            ofSetColor(150);
+            ofFill();
+            ofRect(0,0,m_cropLeft,IR_CAMERA_HEIGHT);
+            ofRect(0,0,IR_CAMERA_WIDTH,m_cropTop);
+            ofRect(IR_CAMERA_WIDTH-m_cropRight,0, m_cropRight, IR_CAMERA_HEIGHT);
+            ofRect(0,IR_CAMERA_HEIGHT-m_cropBottom,IR_CAMERA_WIDTH,m_cropBottom);
+            ofPopStyle();
+            
             m_irFbo.end();
         }
     }
@@ -136,10 +157,12 @@ void TrackingManager::updateContourTracking()
         image.setFromPixels(pixels);
         
         if(m_substractBackground){
-            m_background.reset();
+            //m_background.reset();
             ofImage thresholded;
             m_background.update(image, thresholded);
             thresholded.update();
+            
+            
             m_contourFinder.findContours(thresholded);
         }
         else{
@@ -184,6 +207,8 @@ void TrackingManager::drawTracking()
         this->drawIrCamera();
         this->drawContourTracking();
         this->drawTrackingPosition();
+    
+    //m_findBlobsFbo.draw(0,0);
     ofPopMatrix();
 }
 
@@ -194,7 +219,11 @@ void TrackingManager::drawIrCamera()
         ofSetColor(255);
         ofRect(0, 0, IR_CAMERA_WIDTH + LayoutManager::PADDING*2, IR_CAMERA_HEIGHT + LayoutManager::PADDING*2);
         m_irFbo.draw(LayoutManager::PADDING,LayoutManager::PADDING);
+    
     ofPopStyle();
+    
+    //m_findBlobsFbo.draw(0,0);
+
 }
 
 

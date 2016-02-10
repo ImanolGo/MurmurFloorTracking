@@ -24,13 +24,14 @@
 class TrackingManager: public Manager
 {
     
-    static const int IR_CAMERA_WIDTH;
-    static const int IR_CAMERA_HEIGHT;
     static const float SCALE;
     static const int TRACKING_PERSISTANCY;
     static const int LEARNING_TIME;
     
 public:
+    
+    static const int IR_CAMERA_WIDTH;
+    static const int IR_CAMERA_HEIGHT;
     
     //! Constructor
     TrackingManager();
@@ -79,8 +80,18 @@ public:
     
     //! Reset Backround for background substraction
     void onResetBackground();
+    
+    void onCropLeft( int & pixels) {m_cropLeft = pixels;}
+    
+    void onCropRight( int & pixels) {m_cropRight = pixels;}
+    
+    void onCropTop( int & pixels) {m_cropTop = pixels;}
+    
+    void onCropBottom( int & pixels){m_cropBottom = pixels;}
    
 private:
+    
+    void setupFbos();
     
     void setupKinectCamera();
     
@@ -109,6 +120,8 @@ private:
     ofxMultiKinectV2        m_kinect;                   ///< Mircrosoft Kinect v2 class
     ofTexture               m_irTexture;                ///< The texture holding every new IR captured frame
     ofFbo                   m_irFbo;                    ///< The fbo holding the IR frame after applying shader
+    ofFbo                   m_findBlobsFbo;             ///< The fbo holding the image for blob detection
+
     int                     m_irBrightness;             ///< brightness of the IR image
     
     ofxCv::ContourFinder        m_contourFinder;            ///< threshold used for the contour tracking
@@ -119,6 +132,9 @@ private:
     int                         m_contourMinArea;           ///< contour minimum area
     int                         m_contourMaxArea;           ///< blcontourob's maxmimum area
     bool                        m_substractBackground;      ///< defines whether to extract or not the background
+    
+    int                         m_cropLeft, m_cropRight, m_cropTop, m_cropBottom;
+    
     
 };
 

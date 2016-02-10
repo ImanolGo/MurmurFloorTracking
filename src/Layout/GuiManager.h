@@ -97,6 +97,8 @@ private:
     ofParameter<int>	 m_maxArea;
     ofParameter<bool>	 m_backgroundSubstraction;
     
+    ofParameter<int>     m_cropLeft, m_cropRight, m_cropTop, m_cropBottom;
+    
     ofParameter<int>	 m_paperThrowerSlider;
     
 };
