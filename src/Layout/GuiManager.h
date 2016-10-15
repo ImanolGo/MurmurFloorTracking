@@ -92,6 +92,7 @@ private:
     ofParameter<ofVec2f> m_trackingPos;
     ofParameter<int>	 m_brightness;
     ofParameter<int>	 m_threshold;
+    ofParameter<float>	 m_learningTime;
     ofParameter<int>	 m_backgroundThreshold;
     ofParameter<int>	 m_minArea;
     ofParameter<int>	 m_maxArea;

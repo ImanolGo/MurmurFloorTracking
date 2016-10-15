@@ -80,7 +80,11 @@ void GuiManager::setupTrackingGui()
     m_threshold.addListener(trackingManager, &TrackingManager::onThresholdChange);
     m_trackingParameters.add(m_threshold);
     
-    m_backgroundThreshold.set("BackgroundThreshold", 10, 0, 30);
+    m_learningTime.set("Learning Time", 30, 0, 30);
+    m_learningTime.addListener(trackingManager, &TrackingManager::onLearningTimeChange);
+    m_trackingParameters.add(m_learningTime);
+    
+    m_backgroundThreshold.set("BackgroundThreshold", 10, 0, 255);
     m_backgroundThreshold.addListener(trackingManager, &TrackingManager::onBackgroundThresholdChange);
     m_trackingParameters.add(m_backgroundThreshold);
     

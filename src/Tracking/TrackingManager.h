@@ -68,6 +68,9 @@ public:
     //! Threshold change controlled by GUI
     void onThresholdChange(int & value);
     
+    //! Learning Time change controlled by GUI
+    void onLearningTimeChange(float & value);
+    
     //! Background Threshold change controlled by GUI
     void onBackgroundThresholdChange(int & value);
     

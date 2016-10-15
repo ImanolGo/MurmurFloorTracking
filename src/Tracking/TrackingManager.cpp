@@ -335,14 +335,19 @@ void TrackingManager::onBrightnessChange(int & value){
     //ofLogNotice() <<"TrackingManager::brightness << " << m_irBrightness ;
 }
 
+void TrackingManager::onLearningTimeChange(float & value)
+{
+    m_background.setLearningTime(value);
+}
+
 void TrackingManager::onThresholdChange(int & value){
-    m_threshold = ofClamp(value,0,255);
-    m_contourFinder.setThreshold(m_threshold);
+    //m_threshold = ofClamp(value,0,255);
+    m_contourFinder.setThreshold(value);
 }
 
 void TrackingManager::onBackgroundThresholdChange(int & value){
-    m_thresholdBackground = ofClamp(value,0,30);
-    m_background.setThresholdValue(m_thresholdBackground);
+    //m_thresholdBackground = ofClamp(value,0,30);
+    m_background.setThresholdValue(value);
 }
 
 
