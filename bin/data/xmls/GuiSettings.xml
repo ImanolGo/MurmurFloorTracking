@@ -1,5 +1,5 @@
 <MurmurFloorTracking>
-	<FPS>59.9552</FPS>
+	<FPS>30.0248</FPS>
 	<Brightness>243</Brightness>
 	<Threshold>128</Threshold>
 	<BackgroundThreshold>18</BackgroundThreshold>
@@ -9,19 +9,20 @@
 	<BackgroundSubstraction>1</BackgroundSubstraction>
 <MurmurFloorTracking/>
 <Camera>
-		<Brightness>232</Brightness>
+		<Brightness>212</Brightness>
 	</Camera>
 	<Tracking>
-		<Threshold>183</Threshold>
-		<BackgroundThreshold>10</BackgroundThreshold>
-		<MinArea>5</MinArea>
+		<Threshold>115</Threshold>
+		<BackgroundThreshold>4</BackgroundThreshold>
+		<MinArea>8</MinArea>
 		<MaxArea>186</MaxArea>
-		<TrackingPos>0.441899, 0.437734</TrackingPos>
+		<TrackingPos>0.5, 0.5</TrackingPos>
 		<BackgroundSubstraction>1</BackgroundSubstraction>
 	<CropLeft>0</CropLeft>
 		<CropRight>0</CropRight>
 		<CropTop>0</CropTop>
 		<CropBottom>0</CropBottom>
+	<ReverseCoordinates>1</ReverseCoordinates>
 	</Tracking>
 	<PaperThrower>
 		<Slider>100</Slider>

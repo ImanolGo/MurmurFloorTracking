@@ -13,6 +13,8 @@
 #include "ofxMultiKinectV2.h"
 #include "ofxCv.h"
 
+//#define KINECT_CAMERA //Comment if you are using the laptop camera
+
 
 //========================== class TrackingManager ==============================
 //============================================================================
@@ -78,6 +80,9 @@ public:
     //! Background Subtraction togle change controlled by GUI
     void onBackgroundSubstractionChange(bool & value);
     
+    //! Reverse coordinates togle change controlled by GUI
+    void onReverseCoordinatesChange(bool & value);
+    
     //! Reset Backround for background substraction
     void onResetBackground();
     
@@ -93,9 +98,17 @@ private:
     
     void setupFbos();
     
+    void setupCamera();
+    
     void setupKinectCamera();
     
+    void setupWebCamera();
+    
     void setupContourTracking();
+    
+    void updateCamera();
+    
+    void updateWebCamera();
     
     void updateKinectCamera();
     
@@ -105,7 +118,7 @@ private:
     
     void drawTracking();
     
-    void drawIrCamera();
+    void drawCamera();
     
     void drawContourTracking();
     
@@ -113,11 +126,12 @@ private:
     
 private:
     
-    
+        
     ofShader                m_irShader;                 ///< Shader class handling the IR camera capture
     static const string     m_irFragmentShader;         ///< Fragment shader handling the IR camera capture
     
     ofxMultiKinectV2        m_kinect;                   ///< Mircrosoft Kinect v2 class
+    ofVideoGrabber          m_vidGrabber;                  ///< Video Grabber
     ofTexture               m_irTexture;                ///< The texture holding every new IR captured frame
     ofFbo                   m_irFbo;                    ///< The fbo holding the IR frame after applying shader
     ofFbo                   m_findBlobsFbo;             ///< The fbo holding the image for blob detection
@@ -132,6 +146,7 @@ private:
     int                         m_contourMinArea;           ///< contour minimum area
     int                         m_contourMaxArea;           ///< blcontourob's maxmimum area
     bool                        m_substractBackground;      ///< defines whether to extract or not the background
+    bool                        m_revserseCoordinates;      ///< defines whether to reverse or not the coordinates
     
     int                         m_cropLeft, m_cropRight, m_cropTop, m_cropBottom;
     

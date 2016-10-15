@@ -36,7 +36,7 @@ const int TrackingManager::TRACKING_PERSISTANCY = 5*30;
 const int TrackingManager::LEARNING_TIME = 10*30;
 
 
-TrackingManager::TrackingManager(): Manager(), m_irBrightness(6535.0), m_threshold(80), m_contourMinArea(50), m_contourMaxArea(1000), m_thresholdBackground(10), m_substractBackground(true),m_cropLeft(0), m_cropRight(0), m_cropTop(0), m_cropBottom(0)
+TrackingManager::TrackingManager(): Manager(), m_irBrightness(6535.0), m_threshold(80), m_contourMinArea(50), m_contourMaxArea(1000), m_thresholdBackground(10), m_substractBackground(true),m_cropLeft(0), m_cropRight(0), m_cropTop(0), m_cropBottom(0),m_revserseCoordinates(false)
 {
     //Intentionally left empty
 }
@@ -57,7 +57,7 @@ void TrackingManager::setup()
     
     Manager::setup();
     
-    this->setupKinectCamera();
+    this->setupCamera();
     this->setupContourTracking();
     this->setupFbos();
 }
@@ -83,15 +83,26 @@ void TrackingManager::setupContourTracking()
     m_background.reset();
 }
 
+void TrackingManager::setupCamera()
+{
+    #ifdef KINECT_CAMERA
+        this->setupKinectCamera();
+    #else
+        this->setupWebCamera();
+    #endif
+}
+
+void TrackingManager::setupWebCamera()
+{
+    m_vidGrabber.setDeviceID(0);
+    //m_vidGrabber.setDesiredFrameRate(60);
+    m_vidGrabber.initGrabber(IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT);
+}
+
 void TrackingManager::setupKinectCamera()
 {
     m_irShader.setupShaderFromSource(GL_FRAGMENT_SHADER, m_irFragmentShader);
     m_irShader.linkProgram();
-    
-    m_irFbo.allocate(IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT, GL_RGB);
-    m_irFbo.begin();
-        ofClear(0,0,0,0);
-    m_irFbo.end();
     
     m_kinect.open(true, true, 0, 2);
     m_kinect.start();
@@ -108,8 +119,13 @@ void TrackingManager::setupFbos()
 {
     m_findBlobsFbo.allocate(IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT, GL_RGB);
     m_findBlobsFbo.begin();
-        ofClear(0,0,0,0);
+        ofClear(0);
     m_findBlobsFbo.end();
+    
+    m_irFbo.allocate(IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT, GL_RGB);
+    m_irFbo.begin();
+        ofClear(0);
+    m_irFbo.end();
     
 }
 
@@ -117,9 +133,19 @@ void TrackingManager::setupFbos()
 
 void TrackingManager::update()
 {
-    this->updateKinectCamera();
+    this->updateCamera();
     this->updateContourTracking();
 }
+
+void TrackingManager::updateCamera()
+{
+    #ifdef KINECT_CAMERA
+        this->updateKinectCamera();
+    #else
+        this->updateWebCamera();
+    #endif
+}
+
 
 void TrackingManager::updateKinectCamera()
 {
@@ -148,13 +174,41 @@ void TrackingManager::updateKinectCamera()
     }
 }
 
+void TrackingManager::updateWebCamera()
+{
+    
+    m_vidGrabber.update();
+    if (m_vidGrabber.isFrameNew()) {
+        m_irTexture.loadData(m_vidGrabber.getPixelsRef());
+        
+        if (m_irTexture.isAllocated()) {
+            m_irFbo.begin();
+            
+            m_irTexture.draw(0, 0, IR_CAMERA_WIDTH, IR_CAMERA_HEIGHT);
+            
+            ofPushStyle();
+            ofSetColor(150);
+            ofFill();
+            ofRect(0,0,m_cropLeft,IR_CAMERA_HEIGHT);
+            ofRect(0,0,IR_CAMERA_WIDTH,m_cropTop);
+            ofRect(IR_CAMERA_WIDTH-m_cropRight,0, m_cropRight, IR_CAMERA_HEIGHT);
+            ofRect(0,IR_CAMERA_HEIGHT-m_cropBottom,IR_CAMERA_WIDTH,m_cropBottom);
+            ofPopStyle();
+            
+            m_irFbo.end();
+        }
+
+    }
+}
+
 void TrackingManager::updateContourTracking()
 {
-    if (m_kinect.isFrameNew()) {
+    if (m_kinect.isFrameNew() || m_vidGrabber.isFrameNew()) {
         ofImage image;
         ofPixels pixels;
         m_irFbo.readToPixels(pixels);
         image.setFromPixels(pixels);
+       // image.rotate90(1);
         
         if(m_substractBackground){
             //m_background.reset();
@@ -184,7 +238,14 @@ void TrackingManager::updateTrackingPoint()
             m_trackingPosition.x/=IR_CAMERA_WIDTH;
             m_trackingPosition.y/=IR_CAMERA_HEIGHT;
         }
+        
+        if(m_revserseCoordinates){
+            ofVec2f auxPos = m_trackingPosition;
+            m_trackingPosition.x = auxPos.y;
+            m_trackingPosition.y = auxPos.x;
+        }
     }
+    
     
     AppManager::getInstance().getGuiManager().setGuiTrackingPos(m_trackingPosition);
     //AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
@@ -204,7 +265,7 @@ void TrackingManager::drawTracking()
     ofPushMatrix();
         ofTranslate( pos.x , pos.y );
         ofScale(SCALE,SCALE);
-        this->drawIrCamera();
+        this->drawCamera();
         this->drawContourTracking();
         this->drawTrackingPosition();
     
@@ -213,7 +274,7 @@ void TrackingManager::drawTracking()
 }
 
 
-void TrackingManager::drawIrCamera()
+void TrackingManager::drawCamera()
 {
     ofPushStyle();
         ofSetColor(255);
@@ -299,6 +360,12 @@ void TrackingManager::onBackgroundSubstractionChange(bool & value)
 {
     m_substractBackground = value;
 }
+
+void TrackingManager::onReverseCoordinatesChange(bool & value)
+{
+    m_revserseCoordinates = value;
+}
+
 
 void TrackingManager::onTrackingPosChange(ofVec2f & value)
 {

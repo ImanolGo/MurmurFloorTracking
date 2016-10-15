@@ -96,6 +96,10 @@ void GuiManager::setupTrackingGui()
     m_trackingPos.addListener(trackingManager, &TrackingManager::onTrackingPosChange);
     m_trackingParameters.add(m_trackingPos);
     
+    m_reverseCoordinates.set("ReverseCoordinates", false);
+    m_reverseCoordinates.addListener(trackingManager, &TrackingManager::onReverseCoordinatesChange);
+    m_trackingParameters.add(m_reverseCoordinates);
+
     m_backgroundSubstraction.set("BackgroundSubstraction", true);
     m_backgroundSubstraction.addListener(trackingManager, &TrackingManager::onBackgroundSubstractionChange);
     m_trackingParameters.add(m_backgroundSubstraction);

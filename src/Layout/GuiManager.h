@@ -95,6 +95,7 @@ private:
     ofParameter<int>	 m_backgroundThreshold;
     ofParameter<int>	 m_minArea;
     ofParameter<int>	 m_maxArea;
+    ofParameter<bool>	 m_reverseCoordinates;
     ofParameter<bool>	 m_backgroundSubstraction;
     
     ofParameter<int>     m_cropLeft, m_cropRight, m_cropTop, m_cropBottom;
