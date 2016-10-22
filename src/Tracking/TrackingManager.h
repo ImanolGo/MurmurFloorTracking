@@ -13,7 +13,7 @@
 #include "ofxMultiKinectV2.h"
 #include "ofxCv.h"
 
-//#define KINECT_CAMERA //Comment if you are using the laptop camera
+#define KINECT_CAMERA //Comment if you are using the laptop camera
 
 
 //========================== class TrackingManager ==============================

@@ -102,7 +102,7 @@ void GuiManager::setupTrackingGui()
     
     m_reverseCoordinates.set("ReverseCoordinates", false);
     m_reverseCoordinates.addListener(trackingManager, &TrackingManager::onReverseCoordinatesChange);
-    m_trackingParameters.add(m_reverseCoordinates);
+    //m_trackingParameters.add(m_reverseCoordinates);
 
     m_backgroundSubstraction.set("BackgroundSubstraction", true);
     m_backgroundSubstraction.addListener(trackingManager, &TrackingManager::onBackgroundSubstractionChange);
@@ -130,7 +130,7 @@ void GuiManager::setupTrackingGui()
     ofxButton * resetBackground = new ofxButton();
     resetBackground->setup("ResetBackground");
     resetBackground->addListener(trackingManager, &TrackingManager::onResetBackground);
-    m_gui.add(resetBackground);
+    //m_gui.add(resetBackground);
     
 }
 
